@@ -1,10 +1,8 @@
-version: "3.8"
-
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
-    expose:
-      - "80"
+    ports:
+      - 80

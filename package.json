@@ -7,10 +7,12 @@
     "dev": "node scripts/build.mjs --watch",
     "preview": "npx --yes serve dist -p 4173"
   },
-  "devDependencies": {
-    "chokidar": "^4.0.3",
+  "dependencies": {
     "impress.js": "^1.1.0",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.0.0"
+  },
+  "devDependencies": {
+    "chokidar": "^4.0.3"
   }
 }

@@ -2,6 +2,9 @@
 FROM node:22-alpine AS builder
 WORKDIR /app
 
+# Dokploy/buildkit often sets NODE_ENV=production; build needs these packages installed.
+ENV NODE_ENV=development
+
 COPY package.json package-lock.json ./
 RUN npm ci
 
