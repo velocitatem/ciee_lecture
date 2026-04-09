@@ -59,6 +59,12 @@
 
       #impress {
         color: var(--fg);
+        perspective: {{PERSPECTIVE_PX}}px;
+        perspective-origin: 50% 42%;
+      }
+
+      .impress-enabled #impress {
+        transform-style: preserve-3d;
       }
 
       .step.slide {
@@ -66,6 +72,8 @@
         align-items: center;
         justify-content: center;
         padding: 2rem;
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
       }
 
       .slide-inner {
@@ -76,7 +84,11 @@
         border-radius: 12px;
         background: rgba(255, 255, 255, 0.04);
         border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.35),
+          0 2px 0 rgba(255, 255, 255, 0.06) inset;
+        transform: translateZ(0);
+        transform-style: preserve-3d;
       }
 
       .slide-inner h1 {
@@ -159,7 +171,7 @@
       </p>
     </div>
 
-    <div id="impress" data-transition-duration="600">
+    <div id="impress" data-transition-duration="{{TRANSITION_MS}}">
 {{SLIDES}}
     </div>
 

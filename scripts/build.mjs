@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import MarkdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
+import { computeStepAttrs } from "./layout.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
@@ -35,11 +36,8 @@ function parseSlideBlock(block) {
   return { extraAttrs: m[1].trim(), body: block.slice(m[0].length).trim() };
 }
 
-function buildStepHtml(index, innerHtml, meta, extraAttrs) {
-  const defaultX = index * meta.stepWidth;
-  const defaultY = 0;
-  const base = `data-x="${defaultX}" data-y="${defaultY}"`;
-  const attrs = extraAttrs ? `${base} ${extraAttrs}` : base;
+function buildStepHtml(index, total, innerHtml, meta, impressComment) {
+  const attrs = computeStepAttrs(meta, index, total, impressComment);
   return `    <div class="step slide" ${attrs}>\n      <div class="slide-inner">\n${innerHtml}\n      </div>\n    </div>`;
 }
 
@@ -51,6 +49,13 @@ async function loadMeta() {
     title: String(parsed.title ?? "Presentation"),
     description: String(parsed.description ?? ""),
     stepWidth: Number(parsed.stepWidth ?? 1200),
+    layout: parsed.layout ?? "depth-tilt",
+    layoutOptions:
+      typeof parsed.layoutOptions === "object" && parsed.layoutOptions !== null
+        ? parsed.layoutOptions
+        : {},
+    transitionMs: Number(parsed.transitionMs ?? 950),
+    perspectivePx: Number(parsed.perspectivePx ?? 1500),
   };
 }
 
@@ -68,10 +73,11 @@ async function build() {
   const slidesMd = await fs.readFile(slidesPath, "utf8");
   const blocks = splitSlides(slidesMd);
 
+  const n = blocks.length;
   const steps = blocks.map((block, i) => {
     const { extraAttrs, body } = parseSlideBlock(block);
     const inner = md.render(body);
-    return buildStepHtml(i, inner, meta, extraAttrs);
+    return buildStepHtml(i, n, inner, meta, extraAttrs);
   });
 
   const templatePath = path.join(root, "templates", "index.html");
@@ -80,6 +86,8 @@ async function build() {
   html = html
     .replaceAll("{{TITLE}}", escapeHtml(meta.title))
     .replaceAll("{{DESCRIPTION}}", escapeHtml(meta.description))
+    .replaceAll("{{TRANSITION_MS}}", String(meta.transitionMs))
+    .replaceAll("{{PERSPECTIVE_PX}}", String(meta.perspectivePx))
     .replace("{{SLIDES}}", slidesHtml);
 
   const outDir = path.join(root, "dist");

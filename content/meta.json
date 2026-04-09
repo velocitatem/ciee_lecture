@@ -1,5 +1,13 @@
 {
   "title": "My presentation",
   "description": "Built with impress.js and Markdown",
-  "stepWidth": 1200
+  "stepWidth": 1200,
+  "layout": "depth-tilt",
+  "layoutOptions": {
+    "zStep": 100,
+    "rotateYPerStep": 6,
+    "rotateZPerStep": 0
+  },
+  "transitionMs": 1000,
+  "perspectivePx": 1600
 }
