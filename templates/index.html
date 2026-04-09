@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{{DESCRIPTION}}" />
+    <title>{{TITLE}}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+      crossorigin="anonymous"
+    />
+    <style>
+      :root {
+        color-scheme: dark light;
+        --bg: #0f1115;
+        --fg: #e8eaed;
+        --muted: #9aa0a6;
+        --accent: #7aa2f7;
+        --slide-max: 42rem;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          Ubuntu,
+          Cantarell,
+          "Noto Sans",
+          sans-serif;
+        background: radial-gradient(1200px 800px at 20% 10%, #1a1f2e 0%, var(--bg) 55%);
+        color: var(--fg);
+        line-height: 1.45;
+      }
+
+      .fallback-message {
+        max-width: 40rem;
+        margin: 4rem auto;
+        padding: 0 1.25rem;
+        color: var(--muted);
+      }
+
+      .fallback-message p {
+        margin: 0.75rem 0;
+      }
+
+      body.impress-supported .fallback-message {
+        display: none;
+      }
+
+      #impress {
+        color: var(--fg);
+      }
+
+      .step.slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .slide-inner {
+        width: min(var(--slide-max), 92vw);
+        max-height: 85vh;
+        overflow: auto;
+        padding: 1.5rem 1.75rem;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      }
+
+      .slide-inner h1 {
+        margin: 0 0 0.75rem;
+        font-size: clamp(1.75rem, 3vw, 2.25rem);
+        font-weight: 650;
+        letter-spacing: -0.02em;
+      }
+
+      .slide-inner h2 {
+        margin: 1.25rem 0 0.5rem;
+        font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+        font-weight: 600;
+      }
+
+      .slide-inner p {
+        margin: 0.65rem 0;
+        color: var(--fg);
+      }
+
+      .slide-inner a {
+        color: var(--accent);
+        text-decoration-thickness: 0.08em;
+      }
+
+      .slide-inner ul,
+      .slide-inner ol {
+        margin: 0.5rem 0 0.5rem 1.25rem;
+      }
+
+      .slide-inner pre {
+        margin: 0.85rem 0;
+        padding: 1rem 1.1rem;
+        border-radius: 8px;
+        overflow: auto;
+        background: #0d1117 !important;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .slide-inner code {
+        font-family:
+          ui-monospace,
+          SFMono-Regular,
+          Menlo,
+          Monaco,
+          Consolas,
+          "Liberation Mono",
+          monospace;
+        font-size: 0.92em;
+      }
+
+      .slide-inner pre code {
+        font-size: 0.88rem;
+      }
+
+      .slide-inner :not(pre) > code {
+        padding: 0.12em 0.35em;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      kbd {
+        font: inherit;
+        padding: 0.1em 0.45em;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.06);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fallback-message">
+      <p>
+        Your browser does not support the features required for impress.js, so a simplified
+        version of this presentation is shown.
+      </p>
+      <p>
+        For the full experience, use a modern browser, or open the built files from a local or
+        remote web server (<code>npm run preview</code> after <code>npm run build</code>).
+      </p>
+    </div>
+
+    <div id="impress" data-transition-duration="600">
+{{SLIDES}}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" crossorigin="anonymous"></script>
+    <script src="./js/impress.min.js"></script>
+    <script>
+      hljs.highlightAll();
+      var root = document.getElementById("impress");
+      root.addEventListener(
+        "impress:init",
+        function () {
+          document.body.classList.add("impress-supported");
+        },
+        { once: true },
+      );
+      impress().init();
+    </script>
+  </body>
+</html>
