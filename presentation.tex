@@ -1,0 +1,61 @@
+% !TEX program = pdflatex
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usefonttheme{structurebold}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true,linkcolor=white,urlcolor=cyan!80!white}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  columns=fullflexible,
+  frame=single,
+  rulecolor=\color{structure},
+  backgroundcolor=\color{black!3},
+}
+
+\title{My presentation}
+\subtitle{Built with Beamer}
+\author{}
+\institute{}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Welcome}
+  This is a \textbf{Beamer} deck. Edit \texttt{presentation.tex} and run \texttt{make}.
+
+  \begin{itemize}
+    \item Emphasis, \texttt{monospace}, and \href{https://ctan.org/pkg/beamer}{links}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Code}
+  \begin{lstlisting}
+// Code listings
+console.log("hello");
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Navigation}
+  Use arrow keys or click; \textbf{Space} advances overlays and frames.
+
+  \vfill
+  \centering\small
+  Build: \texttt{make clean \&\& make}
+\end{frame}
+
+\end{document}

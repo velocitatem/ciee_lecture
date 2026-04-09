@@ -1,4 +1,16 @@
-node_modules/
-dist/
+# LaTeX
+*.pdf
+*.aux
+*.log
+*.out
+*.toc
+*.nav
+*.snm
+*.vrb
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Local
 .env
 .env.local
