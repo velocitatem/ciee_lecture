@@ -1,30 +1,35 @@
 % !TEX program = pdflatex
-\documentclass[aspectratio=169,11pt]{beamer}
+\documentclass[aspectratio=169,10pt]{beamer}
 
-\usetheme{Madrid}
-\usecolortheme{default}
-\usefonttheme{structurebold}
+% Metropolis — minimal, high-contrast, modern (CTAN: beamertheme-metropolis)
+\usetheme[progressbar=frametitle,block=fill]{metropolis}
+
+\metroset{numbering=fraction}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
 \usepackage{microtype}
 \usepackage{listings}
 \usepackage{hyperref}
 
-\hypersetup{colorlinks=true,linkcolor=white,urlcolor=cyan!80!white}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=.,
+  urlcolor=magenta,
+  citecolor=.,
+}
 
 \lstset{
   basicstyle=\ttfamily\footnotesize,
   breaklines=true,
   columns=fullflexible,
   frame=single,
-  rulecolor=\color{structure},
-  backgroundcolor=\color{black!3},
+  rulecolor=\color{gray},
+  backgroundcolor=\color{black!5},
 }
 
 \title{My presentation}
-\subtitle{Built with Beamer}
+\subtitle{\texorpdfstring{Beamer · Metropolis}{Beamer Metropolis}}
 \author{}
 \institute{}
 \date{\today}
@@ -36,10 +41,10 @@
 \end{frame}
 
 \begin{frame}{Welcome}
-  This is a \textbf{Beamer} deck. Edit \texttt{presentation.tex} and run \texttt{make}.
+  This is a \textbf{Beamer} deck using the \textbf{Metropolis} theme. Edit \texttt{presentation.tex} and build.
 
   \begin{itemize}
-    \item Emphasis, \texttt{monospace}, and \href{https://ctan.org/pkg/beamer}{links}
+    \item Emphasis, \texttt{monospace}, and \href{https://github.com/matze/mtheme}{Metropolis on GitHub}
   \end{itemize}
 \end{frame}
 
@@ -52,10 +57,6 @@ console.log("hello");
 
 \begin{frame}{Navigation}
   Use arrow keys or click; \textbf{Space} advances overlays and frames.
-
-  \vfill
-  \centering\small
-  Build: \texttt{make clean \&\& make}
 \end{frame}
 
 \end{document}
