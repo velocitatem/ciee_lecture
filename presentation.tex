@@ -1,16 +1,15 @@
 % !TEX program = pdflatex
 \documentclass[aspectratio=169,10pt]{beamer}
 
-% Metropolis — minimal, high-contrast, modern (CTAN: beamertheme-metropolis)
 \usetheme[progressbar=frametitle,block=fill]{metropolis}
-
 \metroset{numbering=fraction}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{microtype}
-\usepackage{listings}
 \usepackage{hyperref}
+\usepackage{array}
+\usepackage{booktabs}
 
 \hypersetup{
   colorlinks=true,
@@ -19,19 +18,11 @@
   citecolor=.,
 }
 
-\lstset{
-  basicstyle=\ttfamily\footnotesize,
-  breaklines=true,
-  columns=fullflexible,
-  frame=single,
-  rulecolor=\color{gray},
-  backgroundcolor=\color{black!5},
-}
+\newcommand{\timing}[1]{\textnormal{\footnotesize\color{magenta!70!black}{#1}}}
 
-\title{My presentation}
-\subtitle{\texorpdfstring{Beamer · Metropolis}{Beamer Metropolis}}
+\title{AI in Beer}
+\subtitle{From algorithm to glass}
 \author{}
-\institute{}
 \date{\today}
 
 \begin{document}
@@ -40,23 +31,483 @@
   \titlepage
 \end{frame}
 
-\begin{frame}{Welcome}
-  This is a \textbf{Beamer} deck using the \textbf{Metropolis} theme. Edit \texttt{presentation.tex} and build.
+% ---------------------------------------------------------------------------
+\begin{frame}[standout]{Open with the asymmetry}
+  \large
+  Every beer you've bought was touched by \textbf{at least three separate companies} before it reached you.
 
+  \vspace{1em}
+  \normalsize
+  None of them could fully see what the others were doing.
+
+  \note{Frames the information-asymmetry problem before any jargon.}
+\end{frame}
+
+\begin{frame}{Roadmap}
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+% ===========================================================================
+\section[Part 1]{\texorpdfstring{Part 1: AI foundations \timing{(30 min)}}{Part 1: AI foundations (30 min)}}
+
+\begin{frame}{Part 1 --- goal}
+  \textbf{Build the conceptual toolkit} for everything that follows.
+
+  \vspace{0.8em}
   \begin{itemize}
-    \item Emphasis, \texttt{monospace}, and \href{https://github.com/matze/mtheme}{Metropolis on GitHub}
+    \item Instructional tone --- build confidence with concrete, non-beer examples first.
+    \item Keep techniques accessible; depth comes in Part~4.
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Code}
-  \begin{lstlisting}
-// Code listings
-console.log("hello");
-  \end{lstlisting}
+\begin{frame}{1.1 What AI actually does in business}
+  \begin{itemize}
+    \item \textbf{Pattern recognition at scale} --- humans struggle past $\sim$100 interacting variables; models don't.
+    \item \textbf{Prediction vs.\ prescription:} forecast what happens \emph{vs.} recommend what to do.
+    \item \textbf{Intuition anchors (not beer):} weather forecasts, recommender systems (e.g.\ Netflix-style), GPS routing.
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{Navigation}
-  Use arrow keys or click; \textbf{Space} advances overlays and frames.
+\begin{frame}{1.2 Core techniques --- machine learning \& time}
+  \begin{itemize}
+    \item \textbf{Ensembles (tabular business data):} gradient-boosted trees (XGBoost, LightGBM) --- think ``a committee of experts, each seeing the problem differently.''
+    \item \textbf{Deep learning for sequences:} LSTMs, Temporal Fusion Transformers --- time matters: yesterday's sales and next week's weather both shape today's decision.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{1.2 (cont.) --- vision, optimization, uncertainty}
+  \begin{itemize}
+    \item \textbf{Computer vision:} cameras + neural nets $\Rightarrow$ machines that ``see'' --- shelves, lines, bottles.
+    \item \textbf{Optimization:} under truck capacity, windows, hours --- best routes, schedules, allocations.
+    \item \textbf{Probabilistic forecasting:} not ``500 cases'' but ``80\% chance between 450 and 550'' --- uncertainty drives safety stock.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{1.3 The AutoML insight}
+  \begin{itemize}
+    \item No single model wins for every SKU in every location (supported in alcohol distribution research).
+    \item Modern stacks \textbf{auto-select} the best model per SKU--location.
+    \item This is a big part of why AI \textbf{scales} where manual analyst grids do not.
+  \end{itemize}
+\end{frame}
+
+% ===========================================================================
+\section[Part 2]{\texorpdfstring{Part 2: Supply chain optimization --- the general problem \timing{(25 min)}}{Part 2: Supply chain optimization (25 min)}}
+
+\begin{frame}{Part 2 --- goal}
+  \textbf{Establish pain points} before any category-specific story.
+
+  \vspace{0.8em}
+  Problem-framing: create tension between service, cost, and visibility.
+\end{frame}
+
+\begin{frame}{2.1 What is a supply chain, really?}
+  \begin{itemize}
+    \item Producer $\rightarrow$ intermediary $\rightarrow$ point of sale $\rightarrow$ consumer.
+    \item Every handoff: \textbf{information loss}, delay, cost.
+    \item Core tension: want \textbf{zero inventory} (cost) and \textbf{zero stockouts} (revenue) --- they fight.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{2.2 The forecasting problem}
+  \begin{itemize}
+    \item Classic: last year + growth factor in a spreadsheet.
+    \item Misses: weather, local events, social trends, promo interactions, competitors.
+    \item Modern systems: \textbf{40--100+} demand signals together.
+    \item \textbf{Weather alone} can improve beer forecast accuracy by about \textbf{3.8--8} percentage points (reported ranges).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{2.3 The inventory problem}
+  \begin{itemize}
+    \item Too much: capital, spoilage risk, storage cost.
+    \item Too little: lost sales, weaker relationships.
+    \item Scale: out-of-stocks cost retailers on the order of \textbf{\$1T} globally; $\sim$\textbf{1 in 10} SKUs missing or misplaced at a given time.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{2.4 The last-mile problem}
+  \begin{itemize}
+    \item Warehouse $\rightarrow$ store/bar is disproportionately expensive.
+    \item $\sim$\textbf{62\%} of routes still planned with \textbf{static} schedules $\Rightarrow$ $\sim$\textbf{18\%} excess kilometers (typical benchmark cited).
+    \item Dynamic routing = combinatorial optimization that \textbf{blows up} in complexity as constraints pile on.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{2.5 The visibility problem (US vs.\ Europe)}
+  \begin{itemize}
+    \item \textbf{US three-tier system} (producer $\rightarrow$ distributor $\rightarrow$ retailer) \textbf{fragments data}.
+    \item Producers rarely see real-time retail sell-through without distributor depletion reports.
+    \item \textbf{Europe:} more vertical integration / direct ties $\Rightarrow$ often \textbf{richer} producer--retailer data loops.
+    \item This \textbf{legal structure} shapes US beer AI strategy end-to-end.
+  \end{itemize}
+  \note{Most US students have never heard of three-tier --- good hook.}
+\end{frame}
+
+\begin{frame}{Why Czechia specifically? --- the beer context}
+  \small
+  \begin{itemize}
+    \item \textbf{Highest per-capita consumption} worldwide: \textbf{126 L/person} (2024); peak \textbf{163.5 L} (2005).
+    \item Brewing since \textbf{993 AD} (Břevnov Monastery, Prague) --- over a millennium of continuous beer culture.
+    \item \textbf{Craft explosion:} active breweries \textbf{128} (2008) $\rightarrow$ \textbf{617} (2019) --- mirrors the US craft wave.
+    \item \textbf{2024 production} up \textbf{4.2\%} to $\sim$\textbf{20.9 M hl} (exports + non-alcoholic demand).
+    \item \textbf{Non-alcoholic} $\approx$\textbf{10\%} of domestic sales --- major shift in a lager-defined culture.
+    \item \textbf{$\sim$75\%} of beer bought in \textbf{shops} (2024, highest outside pandemic years) --- hospoda model under pressure; more drinking at home.
+    \item \textbf{Cans} $\approx$\textbf{one quarter} of packaging; $>$10 pp vs.\ 2023.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Czech market structure --- who owns what}
+  \small
+  \begin{itemize}
+    \item Post-privatization: international groups (SABMiller / AB InBev, Heineken); AB InBev later sold Czech \& Eastern European assets to \textbf{Asahi}.
+    \item \textbf{Big three today:} \textbf{Pilsner Urquell} (Asahi --- largest producer \& exporter), \textbf{Staropramen} (Molson Coors), \textbf{Budweiser Budvar} (\textbf{state-owned} --- only state-owned major brewery).
+    \item \textbf{1842, Plzeň:} first pale lager (pilsner); $>$\textbf{two-thirds} of beer produced globally today descends from this style.
+  \end{itemize}
+  \vspace{0.5em}
+  \footnotesize
+  Hook for US students: Bud Light, Coors Light, Miller Lite --- all descendants of a recipe first brewed in \textbf{Plzeň in 1842}.
+\end{frame}
+
+% ===========================================================================
+\section[Part 3]{\texorpdfstring{Part 3: AI meets supply chain --- general cases \timing{(15 min)}}{Part 3: AI meets supply chain (15 min)}}
+
+\begin{frame}{Part 3 --- goal}
+  Show \textbf{documented patterns} of impact before narrowing to beer.
+\end{frame}
+
+\begin{frame}{3.1 Demand forecasting transformation}
+  \begin{itemize}
+    \item Point forecasts $\rightarrow$ \textbf{probabilistic} ranges.
+    \item Monthly cycles $\rightarrow$ \textbf{continuous} replanning.
+    \item ``Touchless planning'' --- machine-generated plans with minimal override; \textbf{AB InBev} reported $\sim$\textbf{85\%} of US demand plans run this way.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{3.2 Inventory \& replenishment automation}
+  \begin{itemize}
+    \item AI replaces static reorder logic with \textbf{multi-signal} optimization.
+    \item Vendors (e.g.\ RELEX, Blue Yonder, o9) ingest POS, weather, events, promotions.
+    \item Reported SKU-level accuracy often \textbf{85--94\%} vs.\ \textbf{55--68\%} manual (literature / vendor cases).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{3.3 Route optimization}
+  \begin{itemize}
+    \item Benchmarks often cite \textbf{10--25\%} fuel savings, \textbf{10--20\%} distance, \textbf{15--25\%} delivery cost, \textbf{$\sim$84\%} less planner time.
+    \item \textbf{AB InBev + Wise Systems:} $\sim$\textbf{80\%} fewer late deliveries across \textbf{800+} trucks (published case).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{3.4 Computer vision for execution}
+  \begin{itemize}
+    \item Shelf monitoring: manual audits $\sim$\textbf{60--70\%} accuracy vs.\ \textbf{95--99\%} automated detection (typical cited range).
+    \item Rep photographs shelf $\rightarrow$ compliance report in seconds, still in-store.
+  \end{itemize}
+\end{frame}
+
+% ===========================================================================
+\section[Break]{\texorpdfstring{Break \timing{(10 min)}}{Break (10 min)}}
+
+\begin{frame}[standout]{Break --- 10 minutes}
+  \Large
+  Reset. Water. Quick stretch.
+
+  \vspace{1.2em}
+  \normalsize
+  \textbf{After break:} follow \textbf{Pilsner Urquell} from \textbf{Saaz hop fields} to a \textbf{Prague hospoda} --- with global parallels (40 min).
+\end{frame}
+
+% ===========================================================================
+\section[Part 4]{\texorpdfstring{Part 4: The beer value chain --- grain to glass \timing{(40 min)}}{Part 4: The beer value chain (40 min)}}
+
+\begin{frame}{Part 4 --- narrative frame}
+  \Large
+  Follow \textbf{Pilsner Urquell} from \textbf{hop field to hospoda}.
+
+  \vspace{1em}
+  \normalsize
+  \textbf{Arc:} Saaz (climate AI) $\rightarrow$ Plzeň (brewery, warehouse, exports) $\rightarrow$ retail shelf $\rightarrow$ Prague tap $\rightarrow$ returns.
+
+  \vspace{0.6em}
+  \footnotesize
+  Global US/EU examples still appear on each stage for comparison.
+\end{frame}
+
+\begin{frame}{4.1 Why beer is economically special (FMCG)}
+  \begin{itemize}
+    \item \textbf{Perishable} (fresh IPA $\sim$30 days; pasteurized lagers 9+ months), \textbf{heavy}, \textbf{temperature-sensitive}, \textbf{many channels}.
+    \item \textbf{Margin sketch (illustrative):}
+      \begin{itemize}
+        \item Producers: $\sim$50--55\% gross, 20--25\% net --- room to experiment.
+        \item Distributors: $\sim$25\% gross, \textbf{1.8--5.8\% net} --- every basis point counts.
+        \item Off-trade retail: 15--25\% gross --- shelf war.
+        \item On-trade: $\sim$75\% gross but volatile, often data-poor.
+      \end{itemize}
+  \end{itemize}
+  \note{Show margin structure early --- instant ``why care.''}
+\end{frame}
+
+\begin{frame}{4.1 (cont.) --- consolidation}
+  \begin{itemize}
+    \item US distributors: \textbf{3,523} (1990) $\rightarrow$ \textbf{1,386} (2021) --- $\sim$\textbf{61\%} fewer.
+    \item Players above \textbf{\$100M} revenue grew \textbf{619\%}.
+    \item AI tends to \textbf{accelerate} scale advantages.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.1 --- Czechia vs.\ US: distribution \& data}
+  \small
+  \begin{itemize}
+    \item \textbf{Unlike US three-tier:} European models (including Czechia) allow \textbf{vertical integration} and \textbf{direct} producer--retailer ties.
+    \item Breweries such as \textbf{Pilsner Urquell} can build \textbf{direct data links} to retail and on-trade --- a structural advantage the mandatory US tiers often block.
+    \item \textbf{Still hard:} hundreds of small pubs, restaurants, and shops across a \textbf{compact} but \textbf{logistically complex} country --- fragmentation without the US legal wall.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Stage 1 --- Saaz hops: AI before the brewery}
+  \small
+  \begin{itemize}
+    \item \textbf{``For Hops'' (Asahi, Microsoft AI for Earth, Agritecture):} ML and Azure FarmBeats --- satellite imagery, soil sensors, weather --- for \textbf{climate-resilient hop growing} in Czechia.
+    \item Czech \textbf{hop tradition $>$1,000 years}; \textbf{Saaz} (Žatec) noble hops define the pilsner style --- \textbf{climate change} threatens that heritage.
+    \item AI at the \textbf{agricultural input} layer: risk and yield signals before wort exists.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.2 Brewery --- production \& quality (global)}
+  \small
+  \begin{itemize}
+    \item \textbf{Carlsberg:} AI fermentation --- \textbf{18.2\%} shorter fermentation; ``Beer Fingerprinting'' with Microsoft.
+    \item \textbf{Bottling CV:} fill, cap, label, defects at line speed; \textbf{Heineken:} $\sim$92\% better visual inspection, \textbf{35\%} fewer packaging defects (reported).
+    \item \textbf{Returnable glass:} 3D vision (e.g.\ Solomon 3D); \textbf{Water / CIP:} often \textbf{15--80\%} water savings; Carlsberg Fredericia $\sim$\textbf{1.4 hl water / hl beer}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.2 --- Czech breweries: Pilsner Urquell (Asahi)}
+  \small
+  \begin{itemize}
+    \item Production \textbf{$>$10 M hl/year}; Asahi acquired Czech operations \textbf{2017}.
+    \item Bottling line up to \textbf{120{,}000 bottles/hour} at peak --- small crew supervising automation.
+    \item \textbf{IdentPro} WES + \textbf{Sewio RTLS} (2024 networking day at PU): real-time indoor asset tracking in logistics.
+    \item \textbf{PRECOGIT:} SAP-centric ``Brewery of the Future'' digitalization roadmap.
+    \item \textbf{Zero-energy warehouse} under construction in Plzeň --- storage efficiency and lower emissions.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.2 --- Budweiser Budvar (state-owned contrast)}
+  \small
+  \begin{itemize}
+    \item Single site: \textbf{$>$20{,}000 pallets}, \textbf{50+} truck shipments/day, \textbf{360} SKU variants (10 beers $\times$ many label languages).
+    \item \textbf{RFID on forklifts} $\rightarrow$ only $\sim$\textbf{80\%} uptime (antenna damage, harsh environment); moved to \textbf{RTLS} for reliability and logistics insight.
+    \item \textbf{Cloud SAP ERP} migration --- automation and digitalization for a \textbf{130-year-old} brewery.
+    \item State-owned; \textbf{$\sim$EUR 140M} turnover, \textbf{$\sim$600} employees --- scale and governance unlike global megabrewers.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.3 Warehouse --- storage \& preparation (global)}
+  \small
+  \begin{itemize}
+    \item \textbf{Dynamic slotting:} AI can cut average pick paths by $\sim$\textbf{40\%}.
+    \item \textbf{Digital twins} stress-test layout and flow before concrete changes.
+    \item \textbf{AutoScheduler.AI} re-sequences labor, replenishment, docks atop existing WMS.
+    \item \textbf{FEFO-aware} replenishment: e.g.\ 90-day life $\rightarrow$ deliver with \textbf{54--68} days left (retailers often require \textbf{60--75\%} remaining life). AI scores expiry risk and redirects stock to faster outlets.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.3 --- Czech lens: PU \& Budvar warehouses}
+  \small
+  \begin{itemize}
+    \item \textbf{Pilsner Urquell:} WES/RTLS integration, digital twin-style visibility in brewery logistics; \textbf{zero-energy} warehouse build in Plzeň.
+    \item \textbf{Budvar:} massive pallet cube, high outbound truck cadence, label-language complexity --- RTLS + modern ERP as control tower.
+    \item Same themes as global best practice: \textbf{traceability}, \textbf{slotting}, \textbf{energy}, fewer manual searches.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.4 The truck --- routing \& delivery}
+  \small
+  \begin{itemize}
+    \item Mid-size distributor: \textbf{80--150} routes/day; fleet + fuel = \textbf{10--20\%} of revenue.
+    \item \textbf{Off-trade:} pallets, regular cadence, comparatively simple.
+    \item \textbf{On-trade:} many stops, small drops, narrow windows (before open), awkward access --- smaller trucks, multi-temp.
+    \item \textbf{Heineken USA + Palantir:} AI agent network, \textbf{66k} truckloads/yr across \textbf{450} distributors --- built in \textbf{3 months} vs.\ \textbf{3 years} prior (case narrative).
+    \item \textbf{Keg IoT:} Konvoy $\sim$250k tracked kegs --- \textbf{22\%} fewer idle kegs, \textbf{20\%} better utilization; Keg Hounds + HID RFID recovered \textbf{140k} kegs, \textbf{\$12.5M} saved (reported).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.4 --- Czech export logistics (Asahi Europe / PU)}
+  \small
+  \begin{itemize}
+    \item Pilsner Urquell is a \textbf{major exporter}; Asahi Europe's network spans \textbf{50+} destination countries from Czech production.
+    \item Same AI/optimization story as elsewhere: \textbf{load planning}, \textbf{freshness windows}, \textbf{cold chain}, customs and SKU mix --- at continental scale from one home site.
+    \item Connects back to \textbf{warehouse RTLS} and \textbf{high-speed bottling}: execution data feeds dispatch and service promises.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.5 The shelf --- retail execution (global)}
+  \small
+  \begin{itemize}
+    \item SKU proliferation (craft, imports, no/low) $\Rightarrow$ finite space, high-stakes assortment.
+    \item \textbf{Planogram AI:} clustering, demand transfer, space-aware optimization.
+    \item \textbf{BEESForce (AB InBev):} cooler photos $\rightarrow$ planogram + price OCR; firm described a \textbf{five-year struggle} before reliable audits.
+    \item \textbf{AB InBev Korea:} shelf AI \textbf{95\%+} accuracy, \textbf{11 s} vs.\ \textbf{40 min}.
+    \item \textbf{Category captaincy:} large brewers' analytics can reallocate shelf --- structural edge vs.\ small brands.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.5 --- Czech retail: shelf battle}
+  \small
+  \begin{itemize}
+    \item Post-privatization: \textbf{homogeneous} big-brand lagers displaced much \textbf{local} diversity; \textbf{craft} is pushing back (617 breweries).
+    \item \textbf{Czech craft differs from US:} \textbf{34\%} craft brewers only bottom-fermented lagers; \textbf{63\%} both lagers and ales --- US craft skews heavily to ales/IPAs.
+    \item \textbf{Mainstream lagers} dominate at \textbf{low prices}; craft grows inside the same \textbf{finite shelf} --- same \textbf{AI-driven category captain} dynamics as globally.
+    \item Tie to macro: \textbf{NA $\approx$10\%}, \textbf{cans $\approx$25\%}, \textbf{75\% off-premise} --- assortment and promo algorithms train on these shifts.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.6 The tap --- on-trade digitization (global)}
+  \small
+  \begin{itemize}
+    \item Least digitized channel: weak POS standardization, little IoT.
+    \item \textbf{Draft intelligence} examples (reported outcomes): WeissBeerger (AB InBev) \textbf{+32\%} revenue/tap, \textbf{50\%} waste reduction; SmartDispense \textbf{98\%+} pour quality; PourMyBeer \textbf{+37\%} tabs; Pubinno \textbf{652M L} water saved, \textbf{20\%} keg savings.
+    \item \textbf{Heineken EVALAN} tank sensors: volume, temperature, quality telemetry.
+    \item Tap data \textbf{closes the loop} into producer demand planning.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.6 --- Czechia: the \emph{hospoda} and tank beer}
+  \small
+  \begin{itemize}
+    \item \textbf{Hospoda} = cultural institution --- historically the heart of community life, especially in small towns.
+    \item Rural quote (theme): small breweries/pubs often the \textbf{last social hub} in villages --- pressure as consumption moves \textbf{home} (75\% shop share).
+    \item \textbf{Unpasteurized ``tank'' Pilsner Urquell:} fresh beer by \textbf{insulated tanker} to dedicated pubs --- \textbf{cold chain}, freshness, and telemetry are natural \textbf{IoT/AI} cases.
+    \item \textbf{Budvar} matures beer \textbf{minimum 90 days} (vs.\ $\sim$72 hours for some mass lagers) --- \textbf{QC} and \textbf{freshness tracking} matter disproportionately.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.7 Consumer --- pricing, promos, personalization}
+  \begin{itemize}
+    \item Beer price elasticity $\sim$\textbf{--0.5} (less elastic than wine/spirits in many studies).
+    \item \textbf{AB InBev:} $\sim$\textbf{140} ML models across \textbf{7} markets for elasticity; \textbf{80--90\%} accuracy claimed.
+    \item \textbf{Promo waste:} historically \textbf{40--72\%} of trade spend not ROI-positive; AI decomposes lift (incremental, cannibalization, halo, pantry-loading).
+    \item \textbf{Carlsberg VMx:} showed some packs mostly cannibalized own SKUs --- only visible with ML decomposition.
+    \item \textbf{BEES promos:} \textbf{+22\%} redemption, \textbf{+12\%} profit/hl vs.\ traditional discounts; \textbf{72\%} revenue digital; recommendations touch \textbf{80\%+} of orders; \textbf{+3\%} basket when suggestions adopted.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.8 Returns --- reverse logistics \& sustainability}
+  \small
+  \begin{itemize}
+    \item Returnables (bottles, kegs, crates) anchor circularity.
+    \item \textbf{TOMRA:} $\sim$84k reverse vending machines, \textbf{40B+} containers/yr; deep learning \textbf{98\%+} aluminum purity at \textbf{2{,}000} ejections/min --- $\sim$33$\times$ human speed.
+    \item \textbf{Germany $\sim$98\%} return rate vs.\ \textbf{US $\sim$34\%} (deposit vs.\ non-deposit context).
+    \item \textbf{AB InBev:} returnable glass $\sim$8$\times$ lower carbon than one-way glass (internal analysis cited).
+    \item \textbf{Carlsberg:} \textbf{57\%} carbon reduction; Snap Pack $\sim$1{,}200 tonnes plastic/year saved.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.8 --- Czechia: deposits and returnable tradition}
+  \small
+  \begin{itemize}
+    \item Czech market long anchored in \textbf{returnable glass and crates} --- reverse logistics is everyday operations, not a niche pilot.
+    \item \textbf{Deposit systems} and high return discipline pair with the \textbf{same AI vision} as TOMRA-style sorting: purity, speed, fraud detection.
+    \item Closing the loop: returns data $\rightarrow$ \textbf{refill planning}, \textbf{keg pool sizing}, and \textbf{ESG} reporting.
+  \end{itemize}
+\end{frame}
+
+% ===========================================================================
+\section[Part 5]{\texorpdfstring{Part 5: Big picture \& discussion \timing{(10 min)}}{Part 5: Big picture and discussion (10 min)}}
+
+\begin{frame}{5.1 The compounding effect}
+  \begin{itemize}
+    \item Power is the \textbf{cascade}: better forecast $\rightarrow$ less safety stock $\rightarrow$ cheaper warehousing $\rightarrow$ fuller trucks $\rightarrow$ cheaper delivery.
+    \item At \textbf{3\%} net margin, a \textbf{5\%} cut in total operating cost $\approx$ \textbf{doubles} profit (illustrative arithmetic for discussion).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{5.2 Competitive landscape (high level)}
+  \begin{itemize}
+    \item \textbf{AB InBev} leads on breadth: BEES scale (\textbf{\$52.5B} GMV, \textbf{3.1M} customers, \textbf{3B} data points/month) creates advantages smaller players cannot trivially copy.
+    \item \textbf{Heineken} strong second across many domains.
+    \item Gap \textbf{top vs.\ tail} widening --- AI reinforces consolidation pressure.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{5.3 What's next}
+  \begin{itemize}
+    \item \textbf{On-trade digitization} --- largest remaining upside, hardest execution.
+    \item \textbf{Physical + digital convergence} (e.g.\ industry M\&A such as Trax--FORM, Feb 2026) signals integrated execution stacks.
+    \item \textbf{Smart kegs} evolving from ``where is it'' to consumption, temperature, freshness telemetry.
+    \item \textbf{Autonomous diagnosis:} e.g.\ RELEX AI agents (Nov 2025) auto triage stockouts/spoilage roots --- shift from prediction toward closed-loop action.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{5.3 (cont.) --- Czech national AI context}
+  \small
+  \begin{itemize}
+    \item \textbf{KarolAIna} supercomputer (Ostrava): $\sim$\textbf{340} advanced AI accelerators, $\sim$\textbf{850} PFlop/s peak --- national AI training/inference capacity.
+    \item Public AI R\&D: \textbf{EUR 47.6--51.6 M/year}; since 2017, \textbf{$\sim$847} AI-tagged projects, \textbf{$\sim$EUR 452 M} total public funding (order-of-magnitude policy figures).
+    \item \textbf{TechTower, Plzeň:} historic brewery site $\rightarrow$ major \textbf{tech park} --- symbolism: city that invented pilsner now hosts deep-tech and digital industry.
+    \item \textbf{NAIS 2030:} national AI strategy (industry, government, education, security) --- FMCG/beer benefits as \textbf{industrial AI} adopters.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[standout]{The Pilsen story arc}
+  \large
+  \textbf{1842} --- Plzeň invents the pilsner; the style conquers the world.
+
+  \vspace{1em}
+  \textbf{2024--2026} --- Plzeň builds \textbf{TechTower} in a former brewery; national supercomputing and SAP/digital twins run through Czech beer and hops.
+
+  \vspace{1em}
+  \normalsize
+  Same city: \textbf{recipe innovation} then, \textbf{compute and data} now.
+\end{frame}
+
+\begin{frame}[standout]{5.4 Open discussion}
+  \normalsize
+  \begin{itemize}
+    \item If you opened a craft brewery today, how would you compete against AB InBev's data stack?
+    \item Should the US three-tier system change to improve data sharing?
+    \item Czechia allows direct ties --- does that \textbf{close the gap} with megabrewer analytics, or \textbf{not enough}?
+    \item Where is AI \textbf{genuine value} vs.\ \textbf{hype}?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Pacing guide}
+  \small
+  \begin{tabular}{@{}p{0.52\linewidth}cc@{}}
+    \toprule
+    \textbf{Section} & \textbf{Time} & \textbf{Energy} \\
+    \midrule
+    Part 1: AI foundations & 30 min & Instructional \\
+    Part 2: Supply chain problems & 25 min & Tension \\
+    Part 3: AI + SC (general) & 15 min & Proof \\
+    \textbf{Break} & \textbf{10 min} & --- \\
+    Part 4: Beer value chain & 40 min & Narrative core \\
+    Part 5: Big picture + Q\&A & 10 min & Strategic \\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{1em}
+  \footnotesize
+  Total $\sim$2 hours including break.
+\end{frame}
+
+\begin{frame}{Speaker reminders}
+  \small
+  \begin{itemize}
+    \item Use \textbf{margin structure} early --- distributors at 1.8--5.8\% net make efficiency visceral.
+    \item \textbf{Three-tier} as US-specific hook most students have never met.
+    \item Narrative spine: \textbf{Pilsner Urquell} from \textbf{Saaz} to \textbf{Prague hospoda} --- students can \textbf{visit} the place.
+    \item \textbf{TechTower / 1842 hook:} opening or closing story for US audience.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[plain]
+  \centering
+  \vfill
+  {\Large Thank you}
+  \vfill
 \end{frame}
 
 \end{document}
