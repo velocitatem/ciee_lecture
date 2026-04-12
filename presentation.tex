@@ -10,19 +10,121 @@
 \usepackage{hyperref}
 \usepackage{array}
 \usepackage{booktabs}
+\usepackage{fontawesome5}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc, shadows, decorations.pathreplacing}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18, width=\linewidth, height=0.62\linewidth}
+
+% ===========================================================================
+% COLOR PALETTE
+% ===========================================================================
+\definecolor{TechNavy}{HTML}{0F2027}
+\definecolor{TechBlue}{HTML}{203A43}
+\definecolor{TechTeal}{HTML}{00A8CC}
+\definecolor{BeerGold}{HTML}{F6AD55}
+\definecolor{BeerAmber}{HTML}{DD6B20}
+\definecolor{HopGreen}{HTML}{48BB78}
+\definecolor{CardBg}{HTML}{FFFFFF}
+\definecolor{BgGray}{HTML}{F8F9FA}
+\definecolor{TextDark}{HTML}{2D3748}
+\definecolor{MutedGray}{HTML}{A0AEC0}
+
+\setbeamercolor{normal text}{fg=TextDark, bg=BgGray}
+\setbeamercolor{frametitle}{bg=TechNavy, fg=white}
+\setbeamercolor{progress bar}{fg=BeerAmber, bg=TechNavy!30}
+\setbeamercolor{alerted text}{fg=BeerAmber}
+\setbeamercolor{title separator}{fg=BeerAmber}
+\setbeamercolor{palette primary}{bg=TechNavy, fg=white}
 
 \hypersetup{
   colorlinks=true,
-  linkcolor=.,
-  urlcolor=magenta,
-  citecolor=.,
+  linkcolor=TechTeal,
+  urlcolor=BeerAmber,
+  citecolor=TechTeal,
 }
 
-\newcommand{\timing}[1]{\textnormal{\footnotesize\color{magenta!70!black}{#1}}}
+% ===========================================================================
+% GLOBAL GRAPHIC STYLES
+% ===========================================================================
+\tikzset{
+  card/.style={
+    draw=none,
+    fill=CardBg,
+    rounded corners=4pt,
+    drop shadow={shadow xshift=0pt, shadow yshift=-2pt, opacity=0.08},
+    inner sep=8pt
+  },
+  primary icon/.style={
+    circle, fill=TechNavy, text=white, minimum size=1.2cm, inner sep=0pt, font=\Large
+  },
+  accent icon/.style={
+    circle, fill=BeerAmber, text=white, minimum size=1.2cm, inner sep=0pt, font=\Large
+  },
+  arrow/.style={
+    -{Latex[length=3mm]}, thick, TechTeal
+  }
+}
 
-\title{AI in Beer}
-\subtitle{From algorithm to glass}
-\author{}
+\pgfplotsset{
+  modern bar/.style={
+    ybar, bar width=22pt,
+    axis line style={draw=none},
+    ymajorgrids=true, grid style={dashed, MutedGray!50},
+    tick style={draw=none},
+    nodes near coords,
+    every node near coord/.append style={font=\footnotesize\bfseries, text=TextDark},
+    enlarge x limits=0.25, ymin=0,
+    tick label style={font=\footnotesize, color=TextDark}
+  },
+  modern xbar/.style={
+    xbar, bar width=16pt,
+    axis line style={draw=none},
+    xmajorgrids=true, grid style={dashed, MutedGray!50},
+    tick style={draw=none},
+    nodes near coords,
+    every node near coord/.append style={font=\footnotesize\bfseries, text=TextDark},
+    enlarge y limits=0.25, xmin=0,
+    tick label style={font=\footnotesize, color=TextDark}
+  }
+}
+
+% ===========================================================================
+% CUSTOM COMMANDS
+% ===========================================================================
+\newcommand{\timing}[1]{\textnormal{\footnotesize\color{TechTeal}{#1}}}
+
+\newcommand{\bigstat}[3][TechTeal]{%
+  \begin{center}
+    \begin{tikzpicture}
+      \node[
+        card,
+        inner sep=12pt,
+        minimum width=0.9\columnwidth,
+        text width=0.9\columnwidth,
+        align=center
+      ] {
+        {\fontsize{32}{38}\selectfont\bfseries\color{#1}#2\par}
+        \vspace{0.3em}
+        {\normalsize\color{TextDark}#3\par}
+      };
+    \end{tikzpicture}
+  \end{center}}
+
+\newcommand{\sidebyside}[2]{%
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}#1\end{column}
+    \begin{column}{0.48\textwidth}#2\end{column}
+  \end{columns}}
+
+\newcommand{\source}[1]{\vspace{0.4em}{\tiny\color{MutedGray}#1}}
+
+% ===========================================================================
+% TITLE PAGE SETUP
+% ===========================================================================
+\title{Artificial Intelligence in the Czech Beverage and FMCG Value Chain}
+\subtitle{How algorithms protect margin from field to tap}
+\author{Daniel Alves}
 \date{\today}
 
 \begin{document}
@@ -31,16 +133,42 @@
   \titlepage
 \end{frame}
 
-% ---------------------------------------------------------------------------
-\begin{frame}[standout]{Open with the asymmetry}
+\begin{frame}[standout]{AI is now the primary margin defense in Czech beverage distribution}
   \large
-  Every beer you've bought was touched by \textbf{at least three separate companies} before it reached you.
+  Producer, distributor, and retailer all optimize the same bottle.
 
-  \vspace{1em}
+  \vspace{1.1em}
   \normalsize
-  None of them could fully see what the others were doing.
+  Without shared data, each tier protects margin blindly.
 
-  \note{Frames the information-asymmetry problem before any jargon.}
+  \vspace{1.1em}
+  \normalsize
+  \alert{AI closes this visibility gap across the full value chain.}
+\end{frame}
+
+\begin{frame}{I build AI systems where prediction quality directly changes P\&L}
+  \sidebyside{%
+    \begin{itemize}[<+->]\setlength\itemsep{0.9em}
+      \item \textbf{AI Engineer} focused on decision systems in operations.
+      \item Built demand and energy market analytics in Spain.
+      \item Worked with OpenAI teams on OSS model deployment and education integration.
+      \item Founding engineer at a cyber-physical research lab.
+      \item Current research: dynamic pricing optimization on Google TPU infrastructure.
+    \end{itemize}
+  }{%
+    \vspace{0.3em}
+    \begin{tikzpicture}[font=\small]
+      \node[card, minimum width=\linewidth, align=left] {
+        \textbf{Contact}\par\vspace{0.7em}
+        \faEnvelope\ \texttt{daniel@alves.world}\par\vspace{0.5em}
+        \faLinkedin\ LinkedIn profile
+      };
+      \node[card, minimum width=3.2cm, minimum height=3.2cm, fill=TechNavy!4, align=center, below=0.6cm of current bounding box.south, anchor=north] {
+        \Large\color{TechTeal}\faQrcode\\[-0.1em]
+        \scriptsize LinkedIn QR
+      };
+    \end{tikzpicture}
+  }
 \end{frame}
 
 \begin{frame}{Roadmap}
@@ -48,465 +176,845 @@
 \end{frame}
 
 % ===========================================================================
-\section[Part 1]{\texorpdfstring{Part 1: AI foundations \timing{(30 min)}}{Part 1: AI foundations (30 min)}}
+\section[Intro]{\texorpdfstring{Intro: Why beer supply chains are special \timing{(15 min)}}{Intro}}
 
-\begin{frame}{Part 1 --- goal}
-  \textbf{Build the conceptual toolkit} for everything that follows.
-
-  \vspace{0.8em}
-  \begin{itemize}
-    \item Instructional tone --- build confidence with concrete, non-beer examples first.
-    \item Keep techniques accessible; depth comes in Part~4.
-  \end{itemize}
+\begin{frame}{On-trade and off-trade economics require different AI systems}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{\color{BeerAmber}\faBeer\ On-Trade}\\[0.5em]
+      \footnotesize
+      \begin{itemize}[<+->]\setlength\itemsep{0.55em}
+        \item Pubs, restaurants, hospitality
+        \item Keg or tank delivery with strict quality control
+        \item Smaller drops, tighter service windows
+        \item Historically weaker digital visibility
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\color{TechTeal}\faStore\ Off-Trade}\\[0.5em]
+      \footnotesize
+      \begin{itemize}[<+->]\setlength\itemsep{0.55em}
+        \item Supermarkets, e-grocery, convenience
+        \item Packaged goods driven by promo cycles
+        \item Bigger baskets and volume shocks
+        \item Richer point-of-sale data feeds
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \source{Czech market context: on-trade draft share fell below 30\% in 2024.}
 \end{frame}
 
-\begin{frame}{1.1 What AI actually does in business}
-  \begin{itemize}
-    \item \textbf{Pattern recognition at scale} --- humans struggle past $\sim$100 interacting variables; models don't.
-    \item \textbf{Prediction vs.\ prescription:} forecast what happens \emph{vs.} recommend what to do.
-    \item \textbf{Intuition anchors (not beer):} weather forecasts, recommender systems (e.g.\ Netflix-style), GPS routing.
-  \end{itemize}
+\begin{frame}{Beer is harder than typical FMCG because freshness, weight, and culture collide}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.25\textwidth}
+      \centering
+      \begin{tikzpicture}\node[primary icon] {\faSnowflake};\end{tikzpicture}
+      \vspace{0.4em}
+      \footnotesize\textbf{Perishable}\par
+      \scriptsize Shelf-life risk and FEFO pressure
+    \end{column}
+    \begin{column}{0.25\textwidth}
+      \centering
+      \begin{tikzpicture}\node[accent icon] {\faWeightHanging};\end{tikzpicture}
+      \vspace{0.4em}
+      \footnotesize\textbf{Heavy}\par
+      \scriptsize Transport and fuel dominate cost-to-serve
+    \end{column}
+    \begin{column}{0.25\textwidth}
+      \centering
+      \begin{tikzpicture}\node[primary icon, fill=HopGreen] {\faThermometerHalf};\end{tikzpicture}
+      \vspace{0.4em}
+      \footnotesize\textbf{Temperature-sensitive}\par
+      \scriptsize Cold-chain deviations destroy value
+    \end{column}
+    \begin{column}{0.25\textwidth}
+      \centering
+      \begin{tikzpicture}\node[accent icon] {\faUsers};\end{tikzpicture}
+      \vspace{0.4em}
+      \footnotesize\textbf{Cultural}\par
+      \scriptsize Tankovna and hospoda behavior matters
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{1.2 Core techniques --- machine learning \& time}
-  \begin{itemize}
-    \item \textbf{Ensembles (tabular business data):} gradient-boosted trees (XGBoost, LightGBM) --- think ``a committee of experts, each seeing the problem differently.''
-    \item \textbf{Deep learning for sequences:} LSTMs, Temporal Fusion Transformers --- time matters: yesterday's sales and next week's weather both shape today's decision.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{1.2 (cont.) --- vision, optimization, uncertainty}
-  \begin{itemize}
-    \item \textbf{Computer vision:} cameras + neural nets $\Rightarrow$ machines that ``see'' --- shelves, lines, bottles.
-    \item \textbf{Optimization:} under truck capacity, windows, hours --- best routes, schedules, allocations.
-    \item \textbf{Probabilistic forecasting:} not ``500 cases'' but ``80\% chance between 450 and 550'' --- uncertainty drives safety stock.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{1.3 The AutoML insight}
-  \begin{itemize}
-    \item No single model wins for every SKU in every location (supported in alcohol distribution research).
-    \item Modern stacks \textbf{auto-select} the best model per SKU--location.
-    \item This is a big part of why AI \textbf{scales} where manual analyst grids do not.
-  \end{itemize}
-\end{frame}
-
-% ===========================================================================
-\section[Part 2]{\texorpdfstring{Part 2: Supply chain optimization --- the general problem \timing{(25 min)}}{Part 2: Supply chain optimization (25 min)}}
-
-\begin{frame}{Part 2 --- goal}
-  \textbf{Establish pain points} before any category-specific story.
-
-  \vspace{0.8em}
-  Problem-framing: create tension between service, cost, and visibility.
-\end{frame}
-
-\begin{frame}{2.1 What is a supply chain, really?}
-  \begin{itemize}
-    \item Producer $\rightarrow$ intermediary $\rightarrow$ point of sale $\rightarrow$ consumer.
-    \item Every handoff: \textbf{information loss}, delay, cost.
-    \item Core tension: want \textbf{zero inventory} (cost) and \textbf{zero stockouts} (revenue) --- they fight.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{2.2 The forecasting problem}
-  \begin{itemize}
-    \item Classic: last year + growth factor in a spreadsheet.
-    \item Misses: weather, local events, social trends, promo interactions, competitors.
-    \item Modern systems: \textbf{40--100+} demand signals together.
-    \item \textbf{Weather alone} can improve beer forecast accuracy by about \textbf{3.8--8} percentage points (reported ranges).
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{2.3 The inventory problem}
-  \begin{itemize}
-    \item Too much: capital, spoilage risk, storage cost.
-    \item Too little: lost sales, weaker relationships.
-    \item Scale: out-of-stocks cost retailers on the order of \textbf{\$1T} globally; $\sim$\textbf{1 in 10} SKUs missing or misplaced at a given time.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{2.4 The last-mile problem}
-  \begin{itemize}
-    \item Warehouse $\rightarrow$ store/bar is disproportionately expensive.
-    \item $\sim$\textbf{62\%} of routes still planned with \textbf{static} schedules $\Rightarrow$ $\sim$\textbf{18\%} excess kilometers (typical benchmark cited).
-    \item Dynamic routing = combinatorial optimization that \textbf{blows up} in complexity as constraints pile on.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{2.5 The visibility problem (US vs.\ Europe)}
-  \begin{itemize}
-    \item \textbf{US three-tier system} (producer $\rightarrow$ distributor $\rightarrow$ retailer) \textbf{fragments data}.
-    \item Producers rarely see real-time retail sell-through without distributor depletion reports.
-    \item \textbf{Europe:} more vertical integration / direct ties $\Rightarrow$ often \textbf{richer} producer--retailer data loops.
-    \item This \textbf{legal structure} shapes US beer AI strategy end-to-end.
-  \end{itemize}
-  \note{Most US students have never heard of three-tier --- good hook.}
-\end{frame}
-
-\begin{frame}{Why Czechia specifically? --- the beer context}
-  \small
-  \begin{itemize}
-    \item \textbf{Highest per-capita consumption} worldwide: \textbf{126 L/person} (2024); peak \textbf{163.5 L} (2005).
-    \item Brewing since \textbf{993 AD} (Břevnov Monastery, Prague) --- over a millennium of continuous beer culture.
-    \item \textbf{Craft explosion:} active breweries \textbf{128} (2008) $\rightarrow$ \textbf{617} (2019) --- mirrors the US craft wave.
-    \item \textbf{2024 production} up \textbf{4.2\%} to $\sim$\textbf{20.9 M hl} (exports + non-alcoholic demand).
-    \item \textbf{Non-alcoholic} $\approx$\textbf{10\%} of domestic sales --- major shift in a lager-defined culture.
-    \item \textbf{$\sim$75\%} of beer bought in \textbf{shops} (2024, highest outside pandemic years) --- hospoda model under pressure; more drinking at home.
-    \item \textbf{Cans} $\approx$\textbf{one quarter} of packaging; $>$10 pp vs.\ 2023.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Czech market structure --- who owns what}
-  \small
-  \begin{itemize}
-    \item Post-privatization: international groups (SABMiller / AB InBev, Heineken); AB InBev later sold Czech \& Eastern European assets to \textbf{Asahi}.
-    \item \textbf{Big three today:} \textbf{Pilsner Urquell} (Asahi --- largest producer \& exporter), \textbf{Staropramen} (Molson Coors), \textbf{Budweiser Budvar} (\textbf{state-owned} --- only state-owned major brewery).
-    \item \textbf{1842, Plzeň:} first pale lager (pilsner); $>$\textbf{two-thirds} of beer produced globally today descends from this style.
-  \end{itemize}
-  \vspace{0.5em}
-  \footnotesize
-  Hook for US students: Bud Light, Coors Light, Miller Lite --- all descendants of a recipe first brewed in \textbf{Plzeň in 1842}.
+\begin{frame}{Execution is moving from dashboards to autonomous operational agents}
+  \sidebyside{%
+    \begin{tikzpicture}[font=\footnotesize\bfseries, node distance=0.6cm]
+      \node[card, minimum width=\linewidth, fill=TechNavy, text=white, align=center] (a) {\faProjectDiagram\ Planning AI\par\tiny Forecasting, pricing, inventory};
+      \node[card, minimum width=\linewidth, fill=TechTeal, text=white, align=center, below=of a] (b) {\faCogs\ Execution AI\par\tiny Routing, slotting, replenishment};
+      \node[card, minimum width=\linewidth, fill=BeerAmber, text=white, align=center, below=of b] (c) {\faRobot\ Agent Layer\par\tiny Decision support + workflow automation};
+      \draw[arrow] (a)--(b);
+      \draw[arrow] (b)--(c);
+    \end{tikzpicture}
+  }{%
+    \begin{itemize}[<+->]\setlength\itemsep{0.9em}
+      \item \textbf{Palantir AIP:} control tower + simulation layer.
+      \item \textbf{HappyRobot:} voice AI for transportation workflows.
+      \item \textbf{Yieldigo / Blue Yonder / Logio:} pricing, planning, and network design engines.
+      \item \textbf{TOMRA:} AI at the edge in reverse logistics.
+    \end{itemize}
+  }
 \end{frame}
 
 % ===========================================================================
-\section[Part 3]{\texorpdfstring{Part 3: AI meets supply chain --- general cases \timing{(15 min)}}{Part 3: AI meets supply chain (15 min)}}
+\section[Part 1]{\texorpdfstring{Part 1: Classical AI foundations \timing{(25 min)}}{Part 1}}
 
-\begin{frame}{Part 3 --- goal}
-  Show \textbf{documented patterns} of impact before narrowing to beer.
+\begin{frame}{Classical AI drives supply-chain value; GenAI mainly improves access to that value}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Classical AI (focus today)}
+      \footnotesize
+      \begin{itemize}\setlength\itemsep{0.55em}
+        \item Forecasting demand
+        \item Optimizing routes
+        \item Detecting defects with vision
+        \item Pricing and markdown optimization
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{GenAI (supporting role)}
+      \footnotesize
+      \begin{itemize}\setlength\itemsep{0.55em}
+        \item Natural-language querying (e.g., Hoppy)
+        \item Fast report generation
+        \item Workflow copilots
+        \item Compliance and document checks
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{3.1 Demand forecasting transformation}
-  \begin{itemize}
-    \item Point forecasts $\rightarrow$ \textbf{probabilistic} ranges.
-    \item Monthly cycles $\rightarrow$ \textbf{continuous} replanning.
-    \item ``Touchless planning'' --- machine-generated plans with minimal override; \textbf{AB InBev} reported $\sim$\textbf{85\%} of US demand plans run this way.
-  \end{itemize}
+\begin{frame}{A model is just a learned mapping from inputs to outputs}
+  \sidebyside{%
+    \bigstat[TechNavy]{f(x) -> y}{Learned function from data}
+    \vspace{-0.3em}
+    \begin{center}
+      \small
+      Inputs: weather, promos, inventory, route times\par
+      Output: demand, markdown, dispatch plan
+    \end{center}
+  }{%
+    \begin{tikzpicture}[x=0.84cm,y=0.9cm,font=\scriptsize]
+      \tikzset{
+        flow input/.style={rounded corners=3pt, fill=CardBg, draw=none, inner sep=4pt, minimum width=1.55cm, minimum height=0.6cm, align=center},
+        flow model/.style={rounded corners=4pt, fill=TechTeal!15, draw=none, inner sep=5pt, minimum width=1.85cm, minimum height=1.7cm, align=center},
+        flow output/.style={rounded corners=4pt, fill=BeerAmber!15, draw=none, inner sep=4pt, minimum width=1.75cm, minimum height=0.62cm, align=center},
+        flow arrow/.style={-{Stealth[length=1.6mm,width=1.3mm]}, line width=0.75pt, TechTeal}
+      }
+      \node[flow input] (a) at (0,1.2) {Weather};
+      \node[flow input] (b) at (0,0.38) {Promotion};
+      \node[flow input] (c) at (0,-0.44) {Inventory};
+      \node[flow model] (m) at (2.4,0.38) {Model};
+      \node[flow output] (o) at (5.2,0.38) {Order Qty};
+      \draw[flow arrow] (a.east) -- ($(m.west)+(0,0.36)$);
+      \draw[flow arrow] (b.east) -- (m.west);
+      \draw[flow arrow] (c.east) -- ($(m.west)+(0,-0.36)$);
+      \draw[flow arrow] (m.east) -- (o.west);
+    \end{tikzpicture}
+  }
 \end{frame}
 
-\begin{frame}{3.2 Inventory \& replenishment automation}
-  \begin{itemize}
-    \item AI replaces static reorder logic with \textbf{multi-signal} optimization.
-    \item Vendors (e.g.\ RELEX, Blue Yonder, o9) ingest POS, weather, events, promotions.
-    \item Reported SKU-level accuracy often \textbf{85--94\%} vs.\ \textbf{55--68\%} manual (literature / vendor cases).
-  \end{itemize}
+\begin{frame}{Classification and regression answer different operational questions}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{\faTags\ Classification}
+      \footnotesize
+      \begin{itemize}\setlength\itemsep{0.6em}
+        \item Is this bottle defective or not?
+        \item Is this store at stockout risk?
+        \item Is this returnable package fraudulent?
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\faChartLine\ Regression}
+      \footnotesize
+      \begin{itemize}\setlength\itemsep{0.6em}
+        \item How many units will sell tomorrow?
+        \item What markdown clears stock with margin?
+        \item How long will this route really take?
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{3.3 Route optimization}
-  \begin{itemize}
-    \item Benchmarks often cite \textbf{10--25\%} fuel savings, \textbf{10--20\%} distance, \textbf{15--25\%} delivery cost, \textbf{$\sim$84\%} less planner time.
-    \item \textbf{AB InBev + Wise Systems:} $\sim$\textbf{80\%} fewer late deliveries across \textbf{800+} trucks (published case).
-  \end{itemize}
+\begin{frame}{Operational AI stacks prediction, optimization, and vision in one loop}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.24\textwidth}
+      \centering
+      \begin{tikzpicture}\node[primary icon] {\faChartLine};\end{tikzpicture}\\[0.4em]
+      \footnotesize\textbf{Forecasting}\par
+      \scriptsize LSTM, TFT, XGBoost
+    \end{column}
+    \begin{column}{0.24\textwidth}
+      \centering
+      \begin{tikzpicture}\node[accent icon] {\faRoute};\end{tikzpicture}\\[0.4em]
+      \footnotesize\textbf{Optimization}\par
+      \scriptsize Routing, slotting, dispatch
+    \end{column}
+    \begin{column}{0.24\textwidth}
+      \centering
+      \begin{tikzpicture}\node[primary icon, fill=HopGreen] {\faCamera};\end{tikzpicture}\\[0.4em]
+      \footnotesize\textbf{Vision}\par
+      \scriptsize Shelf, checkout, RVM sorting
+    \end{column}
+    \begin{column}{0.24\textwidth}
+      \centering
+      \begin{tikzpicture}\node[accent icon] {\faCogs};\end{tikzpicture}\\[0.4em]
+      \footnotesize\textbf{Continuous Replan}\par
+      \scriptsize Touchless planning cycles
+    \end{column}
+  \end{columns}
+  \vspace{1em}
+  \centering\small Better forecasts are useful only when they trigger better decisions automatically.
 \end{frame}
 
-\begin{frame}{3.4 Computer vision for execution}
-  \begin{itemize}
-    \item Shelf monitoring: manual audits $\sim$\textbf{60--70\%} accuracy vs.\ \textbf{95--99\%} automated detection (typical cited range).
-    \item Rep photographs shelf $\rightarrow$ compliance report in seconds, still in-store.
-  \end{itemize}
+\begin{frame}{Censored demand is a hidden data defect that causes chronic under-ordering}
+  \sidebyside{%
+    \begin{tikzpicture}
+      \begin{axis}[
+        modern bar,
+        width=\linewidth,
+        height=4.2cm,
+        symbolic x coords={True demand,Observed sales},
+        xtick={True demand,Observed sales},
+        ylabel={Units}
+      ]
+        \addplot[fill=BeerGold] coordinates {(True demand,100)};
+        \addplot[fill=MutedGray!60] coordinates {({Observed sales},72)};
+      \end{axis}
+    \end{tikzpicture}
+  }{%
+    \vspace{0.5em}
+    \footnotesize
+    \textbf{Observed sales $= \min(\text{true demand},\text{available stock})$}\par\vspace{0.7em}
+    \begin{itemize}\setlength\itemsep{0.6em}
+      \item Stockouts hide real demand signal.
+      \item Naive models learn false low demand.
+      \item Result: repeated stockouts and margin leakage.
+    \end{itemize}
+  }
+\end{frame}
+
+\begin{frame}{Black swans are not forecastable, but AI still reduces damage through faster reallocation}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.42\textwidth}
+      \bigstat[BeerAmber]{COVID-19}{Demand pattern breaks overnight}
+    \end{column}
+    \begin{column}{0.54\textwidth}
+      \footnotesize
+      \begin{itemize}[<+->]\setlength\itemsep{0.8em}
+        \item Models trained on normal history fail under regime shifts.
+        \item Decision support still helps rebalance inventory between channels.
+        \item Scenario simulation becomes more valuable than point forecasts.
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 % ===========================================================================
-\section[Break]{\texorpdfstring{Break \timing{(10 min)}}{Break (10 min)}}
+\section[Part 2]{\texorpdfstring{Part 2: Czech market economics \timing{(30 min)}}{Part 2}}
 
-\begin{frame}[standout]{Break --- 10 minutes}
-  \Large
-  Reset. Water. Quick stretch.
+\begin{frame}{Czech FMCG is economically heavyweight, so small efficiency gains scale nationally}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.49\textwidth}
+      \begin{tikzpicture}
+        \node[card, minimum width=\linewidth, align=center] {
+          {\fontsize{34}{40}\selectfont\bfseries\color{TechTeal}25.8\%}\\[-0.2em]
+          \normalsize of national GDP tied to FMCG ecosystem
+        };
+      \end{tikzpicture}
+      \vspace{0.4em}
+      \begin{tikzpicture}
+        \node[card, minimum width=\linewidth, align=center] {
+          {\fontsize{30}{36}\selectfont\bfseries\color{TechNavy}EUR 78.9B}\\[-0.2em]
+          \normalsize estimated sector contribution (2023)
+        };
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.49\textwidth}
+      \footnotesize
+      \begin{itemize}\setlength\itemsep{0.7em}
+        \item $>$10,000 food companies in Czechia.
+        \item $>$100,000 workers in food manufacturing.
+        \item Household consumption remains the core demand driver.
+        \item Inflation preserved value growth while volumes compressed.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \source{AIM Data Points, USDA/FAS, Czech FMCG market reports.}
+\end{frame}
+
+\begin{frame}{Beer demand is structurally shifting from alcoholic volume toward non-alcoholic growth}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[
+          modern bar,
+          width=\linewidth,
+          height=4.4cm,
+          symbolic x coords={2004 Peak,2024},
+          xtick=data,
+          ylabel={Liters per capita}
+        ]
+          \addplot[fill=BeerGold] coordinates {(2004 Peak,163) (2024,126)};
+        \end{axis}
+      \end{tikzpicture}
+      \centering\footnotesize Per-capita beer consumption continues long-run decline.
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[
+          modern bar,
+          width=\linewidth,
+          height=4.4cm,
+          symbolic x coords={2019,2024},
+          xtick=data,
+          ylabel={Non-alcoholic beer (M hl)}
+        ]
+          \addplot[fill=HopGreen] coordinates {(2019,1.07) (2024,1.60)};
+        \end{axis}
+      \end{tikzpicture}
+      \centering\footnotesize Non-alcoholic segment +50\% vs 2019; now near 10\% of sales.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Channel migration to retail changes packaging, forecasting, and promotion economics}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.44\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[
+        modern bar,
+        width=\linewidth,
+        height=4.6cm,
+        symbolic x coords={Off-trade,On-trade},
+        xtick={Off-trade,On-trade},
+        ylabel={Estimated share (\%)}
+      ]
+          \addplot[fill=TechTeal] coordinates {(Off-trade,71)};
+          \addplot[fill=BeerAmber] coordinates {(On-trade,29)};
+        \end{axis}
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.52\textwidth}
+      \footnotesize
+      \begin{itemize}[<+->]\setlength\itemsep{0.8em}
+        \item Draft share in on-trade fell below 30\% in 2024.
+        \item Off-trade demand is more promotion- and weather-sensitive.
+        \item Planning shifts from keg cadence to packaged-goods volatility.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Market concentration means top brewers can compound data advantage faster}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.52\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[
+          modern bar,
+          width=\linewidth,
+          height=4.8cm,
+          symbolic x coords={Asahi/Prazdroj,Heineken CZ,Others},
+          xtick=data,
+          ylabel={Market share (\%)},
+          ymax=55,
+          x tick label style={font=\scriptsize, rotate=12, anchor=east}
+        ]
+          \addplot[fill=TechNavy] coordinates {({Asahi/Prazdroj},45.0) ({Heineken CZ},14.1) (Others,40.9)};
+        \end{axis}
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \footnotesize
+      \begin{itemize}[<+->]\setlength\itemsep{0.9em}
+        \item Production recovered to \(\sim 20.9\)M hl in 2024 (+4.2\% YoY).
+        \item Capital-intensive AI infrastructure favors scale.
+        \item Smaller players must specialize or partner for data access.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Domestic price transmission is wholesale-led and slow, so cost shocks hurt margins first}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \begin{tikzpicture}[node distance=0.75cm, font=\scriptsize]
+        \node[card, minimum width=2.6cm, fill=TechNavy, text=white] (p) {Producer Price};
+        \node[card, minimum width=2.8cm, fill=BeerAmber, text=white, below=of p] (w) {Wholesale Price};
+        \node[card, minimum width=2.6cm, below=of w] (r) {Retail Price};
+        \node[card, minimum width=2.8cm, right=2.4cm of w, fill=MutedGray!20] (e) {Export Price};
+
+        \draw[-{Latex}, very thick, BeerAmber] (p) -- (w);
+        \draw[-{Latex}, very thick, BeerAmber] (w) -- (r);
+        \draw[-{Latex}, thick, MutedGray] (p.east) -- (e.west);
+
+        \node[align=center, font=\tiny, text=BeerAmber] at (2.4,-1.2) {Strongest domestic\\price influence};
+        \node[align=center, font=\tiny, text=MutedGray] at (5.5,-0.8) {Divergent trend\\(global drivers)};
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \footnotesize
+      \begin{itemize}[<+->]\setlength\itemsep{0.8em}
+        \item VECM evidence: short-run coefficients mostly insignificant.
+        \item Price updates happen with lag, often at contractual intervals.
+        \item During inflation shocks, distributors absorb pressure first.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \source{Price relationships along the Czech beer value chain (Johansen cointegration, VECM).}
+\end{frame}
+
+\begin{frame}{Distributors operate on thin net margins, so operational AI is not optional}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.40\textwidth}
+      \bigstat[BeerAmber]{1.8--5.8\%}{Typical distributor net margin band}
+    \end{column}
+    \begin{column}{0.56\textwidth}
+      \footnotesize
+      \begin{itemize}[<+->]\setlength\itemsep{0.8em}
+        \item Slow pass-through means pricing alone cannot defend P\&L.
+        \item Margin protection comes from fewer errors, less waste, and tighter routing.
+        \item AI therefore acts as a cost-defense layer rather than a vanity technology.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ===========================================================================
+\section[Break]{\texorpdfstring{Break \timing{(10 min)}}{Break}}
+
+\begin{frame}[standout]
+  \Huge \faCoffee \\[0.4em]
+  \Large Break --- 10 minutes
+
+  \vspace{1em}
+  \normalsize
+  After the break we follow one bottle from \textbf{Saaz field} to \textbf{retail shelf} to \textbf{pub tap}.
+\end{frame}
+
+% ===========================================================================
+\section[Part 3]{\texorpdfstring{Part 3: AI deployments across the chain \timing{(40 min)}}{Part 3}}
+
+\begin{frame}{AI is now embedded at every node from agriculture to reverse logistics}
+  \centering
+  \begin{tikzpicture}[font=\footnotesize\bfseries, node distance=0.45cm]
+    \node[card, fill=HopGreen, text=white, minimum width=2cm, align=center] (a) {\faLeaf\\Saaz};
+    \node[card, fill=BeerGold, text=TechNavy, minimum width=2cm, align=center, right=of a] (b) {\faIndustry\\Brewery};
+    \node[card, fill=TechTeal, text=white, minimum width=2cm, align=center, right=of b] (c) {\faWarehouse\\DC};
+    \node[card, fill=TechNavy, text=white, minimum width=2cm, align=center, right=of c] (d) {\faTruck\\Last Mile};
+    \node[card, fill=BeerAmber, text=white, minimum width=2cm, align=center, right=of d] (e) {\faStore\\Retail};
+    \node[card, fill=MutedGray!60, text=white, minimum width=2cm, align=center, right=of e] (f) {\faRecycle\\Returns};
+    \foreach \x/\y in {a/b,b/c,c/d,d/e,e/f} \draw[arrow, line width=1.3pt] (\x) -- (\y);
+  \end{tikzpicture}
 
   \vspace{1.2em}
-  \normalsize
-  \textbf{After break:} follow \textbf{Pilsner Urquell} from \textbf{Saaz hop fields} to a \textbf{Prague hospoda} --- with global parallels (40 min).
+  \small Forecasting, pricing, computer vision, routing, and IoT all run as one economic system.
 \end{frame}
 
-% ===========================================================================
-\section[Part 4]{\texorpdfstring{Part 4: The beer value chain --- grain to glass \timing{(40 min)}}{Part 4: The beer value chain (40 min)}}
-
-\begin{frame}{Part 4 --- narrative frame}
-  \Large
-  Follow \textbf{Pilsner Urquell} from \textbf{hop field to hospoda}.
-
-  \vspace{1em}
-  \normalsize
-  \textbf{Arc:} Saaz (climate AI) $\rightarrow$ Plzeň (brewery, warehouse, exports) $\rightarrow$ retail shelf $\rightarrow$ Prague tap $\rightarrow$ returns.
-
+\begin{frame}{Touchless planning delivers immediate value in availability and waste}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.32\textwidth}
+      \bigstat[TechTeal]{97\%}{Ko\v{s}\'ik product availability}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \bigstat[HopGreen]{-75\%}{Expired-goods write-offs}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \bigstat[TechNavy]{<24h}{Reaction speed to price/cost changes}
+    \end{column}
+  \end{columns}
   \vspace{0.6em}
-  \footnotesize
-  Global US/EU examples still appear on each stage for comparison.
+  \begin{itemize}[<+->]\setlength\itemsep{0.6em}
+    \item Ko\v{s}\'ik + Logio (Veritico Stock): automated forecasting and replenishment redesign.
+    \item Rohl\'ik operating model: 17,000+ SKUs with 90-minute fulfillment promise.
+    \item Heineken + Blue Yonder: cognitive demand planning and scenario orchestration.
+  \end{itemize}
+  \source{Logio and Yieldigo case studies; Blue Yonder deployment reports.}
 \end{frame}
 
-\begin{frame}{4.1 Why beer is economically special (FMCG)}
-  \begin{itemize}
-    \item \textbf{Perishable} (fresh IPA $\sim$30 days; pasteurized lagers 9+ months), \textbf{heavy}, \textbf{temperature-sensitive}, \textbf{many channels}.
-    \item \textbf{Margin sketch (illustrative):}
-      \begin{itemize}
-        \item Producers: $\sim$50--55\% gross, 20--25\% net --- room to experiment.
-        \item Distributors: $\sim$25\% gross, \textbf{1.8--5.8\% net} --- every basis point counts.
-        \item Off-trade retail: 15--25\% gross --- shelf war.
-        \item On-trade: $\sim$75\% gross but volatile, often data-poor.
+\begin{frame}{Forecast quality rises when models ingest external drivers}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.44\textwidth}
+      \resizebox{\linewidth}{!}{%
+        \begin{tikzpicture}[font=\scriptsize]
+          \tikzset{
+            driver/.style={rounded corners=3pt, fill=CardBg, draw=none, inner sep=4pt, minimum width=2.25cm, minimum height=0.66cm, align=center},
+            engine/.style={rounded corners=4pt, fill=TechTeal!15, draw=none, inner sep=5pt, minimum width=2.9cm, minimum height=0.95cm, align=center},
+            plan/.style={rounded corners=4pt, fill=BeerAmber!15, draw=none, inner sep=4pt, minimum width=2.0cm, minimum height=0.78cm, align=center},
+            flow arrow/.style={-{Stealth[length=1.7mm,width=1.4mm]}, line width=0.8pt, TechTeal}
+          }
+          \node[driver] (s) at (0,2.0) {Sales History};
+          \node[driver] (w) at (0,1.1) {Weather};
+          \node[driver] (p) at (0,0.2) {Promotions};
+          \node[driver] (e) at (0,-0.7) {Events};
+          \node[engine] (m) at (3.8,0.65) {AI Forecast Engine};
+          \node[plan] (o) at (6.6,0.65) {Order Plan};
+          \draw[flow arrow] (s.east) to[out=0,in=180] ($(m.west)+(0,0.34)$);
+          \draw[flow arrow] (w.east) to[out=0,in=180] ($(m.west)+(0,0.11)$);
+          \draw[flow arrow] (p.east) to[out=0,in=180] ($(m.west)+(0,-0.11)$);
+          \draw[flow arrow] (e.east) to[out=0,in=180] ($(m.west)+(0,-0.34)$);
+          \draw[flow arrow] (m.east) -- (o.west);
+        \end{tikzpicture}%
+      }
+    \end{column}
+    \begin{column}{0.53\textwidth}
+      \footnotesize
+      \begin{itemize}[<+->]\setlength\itemsep{0.9em}
+        \item Legacy approach: moving averages from ERP tables.
+        \item Modern approach: multi-signal, probabilistic, continuously refreshed.
+        \item Reported uplift from richer signals can reach \(\sim\)25\% forecast accuracy improvement.
       \end{itemize}
-  \end{itemize}
-  \note{Show margin structure early --- instant ``why care.''}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{4.1 (cont.) --- consolidation}
-  \begin{itemize}
-    \item US distributors: \textbf{3,523} (1990) $\rightarrow$ \textbf{1,386} (2021) --- $\sim$\textbf{61\%} fewer.
-    \item Players above \textbf{\$100M} revenue grew \textbf{619\%}.
-    \item AI tends to \textbf{accelerate} scale advantages.
-  \end{itemize}
+\begin{frame}{Dynamic pricing automation stops leakage while protecting customer trust}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.50\textwidth}
+      \textbf{Ko\v{s}\'ik + Yieldigo}
+      \footnotesize
+      \begin{itemize}\setlength\itemsep{0.55em}
+        \item Up to 90\% of pricing process automated
+        \item 95\% fewer displayed pricing errors
+        \item Cross-elasticity aware promotion decisions
+        \item What-if simulations before price goes live
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \textbf{Albert + ESL infrastructure}
+      \footnotesize
+      \begin{itemize}\setlength\itemsep{0.55em}
+        \item AI markdown for near-expiry fresh goods
+        \item ESL updates remove paper-tag latency
+        \item Waste reduction without surge-pricing behavior
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{4.1 --- Czechia vs.\ US: distribution \& data}
+\begin{frame}{Automated intralogistics expands throughput and cuts emissions simultaneously}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.58\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[
+          modern bar,
+          width=\linewidth,
+          height=4.9cm,
+          symbolic x coords={Storage Cap.,Dispatch Cap.,CO2 Reduction},
+          xtick=data,
+          ylabel={Change (\%)},
+          x tick label style={font=\scriptsize, rotate=10, anchor=east}
+        ]
+          \addplot[fill=TechTeal] coordinates {({Storage Cap.},20) ({Dispatch Cap.},50) ({CO2 Reduction},100)};
+        \end{axis}
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.38\textwidth}
+      \footnotesize
+      \textbf{Plze\v{n}sk\'y Prazdroj high-bay warehouse}\par\vspace{0.6em}
+      \begin{itemize}[<+->]\setlength\itemsep{0.6em}
+        \item 42,000 pallet positions
+        \item 320 pallets/hour in/out flow
+        \item \(\sim\)500 tons CO\textsubscript{2} avoided annually
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \source{Krones + System Logistics + Logio implementation reports.}
+\end{frame}
+
+\begin{frame}{Route optimization learns stop-level reality and can raise route density up to 30\%}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[
+          modern bar,
+          width=\linewidth,
+          height=4.7cm,
+          symbolic x coords={Fuel,Distance,Late Deliveries,Planner Time},
+          xtick=data,
+          ylabel={Typical improvement (\%)},
+          ymax=90,
+          x tick label style={font=\scriptsize, rotate=12, anchor=east}
+        ]
+          \addplot[fill=BeerGold] coordinates {(Fuel,18) (Distance,15) ({Late Deliveries},80) ({Planner Time},84)};
+        \end{axis}
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.41\textwidth}
+      \footnotesize
+      \begin{itemize}[<+->]\setlength\itemsep{0.8em}
+        \item HOPI and peers run telematics-driven dynamic dispatch.
+        \item Service times are learned from actual stops, not assumptions.
+        \item Temperature controls integrate directly into route logic.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{IoT tank telemetry closes the on-trade blind spot from cellar to headquarters}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.32\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \node[card, minimum width=\linewidth, align=center] {
+          \Large\color{TechTeal}\faBatteryHalf\\[0.2em]
+          \footnotesize\textbf{Level / Volume}\\
+          \scriptsize Auto replenishment trigger
+        };
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \node[card, minimum width=\linewidth, align=center] {
+          \Large\color{BeerAmber}\faThermometerHalf\\[0.2em]
+          \footnotesize\textbf{Temperature}\\
+          \scriptsize Quality alerts at 8\,$^\circ$C target
+        };
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \node[card, minimum width=\linewidth, align=center] {
+          \Large\color{HopGreen}\faChartLine\\[0.2em]
+          \footnotesize\textbf{Flow Rate}\\
+          \scriptsize Real pour demand by hour
+        };
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{1em}
   \small
-  \begin{itemize}
-    \item \textbf{Unlike US three-tier:} European models (including Czechia) allow \textbf{vertical integration} and \textbf{direct} producer--retailer ties.
-    \item Breweries such as \textbf{Pilsner Urquell} can build \textbf{direct data links} to retail and on-trade --- a structural advantage the mandatory US tiers often block.
-    \item \textbf{Still hard:} hundreds of small pubs, restaurants, and shops across a \textbf{compact} but \textbf{logistically complex} country --- fragmentation without the US legal wall.
-  \end{itemize}
+  Plze\v{n}sk\'y Prazdroj reports tank-beer transport optimization that removed \textbf{271,000 km} from delivery routes.
 \end{frame}
 
-\begin{frame}{Stage 1 --- Saaz hops: AI before the brewery}
-  \small
-  \begin{itemize}
-    \item \textbf{``For Hops'' (Asahi, Microsoft AI for Earth, Agritecture):} ML and Azure FarmBeats --- satellite imagery, soil sensors, weather --- for \textbf{climate-resilient hop growing} in Czechia.
-    \item Czech \textbf{hop tradition $>$1,000 years}; \textbf{Saaz} (Žatec) noble hops define the pilsner style --- \textbf{climate change} threatens that heritage.
-    \item AI at the \textbf{agricultural input} layer: risk and yield signals before wort exists.
-  \end{itemize}
+\begin{frame}{Computer vision now accelerates checkout and enables trusted reverse logistics}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Albert + FreshAI checkout scales}
+      \footnotesize
+      \begin{itemize}\setlength\itemsep{0.55em}
+        \item \(\sim\)99\% item-recognition hit rate
+        \item \(\sim\)8 seconds saved per loose item
+        \item \(\sim\)1,700 units installed in 50+ stores
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{RVM vision at DRS intake}
+      \footnotesize
+      \begin{itemize}\setlength\itemsep{0.55em}
+        \item Barcode + material validation
+        \item Fraud and contamination rejection
+        \item High-purity output for closed-loop recycling
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{4.2 Brewery --- production \& quality (global)}
-  \small
-  \begin{itemize}
-    \item \textbf{Carlsberg:} AI fermentation --- \textbf{18.2\%} shorter fermentation; ``Beer Fingerprinting'' with Microsoft.
-    \item \textbf{Bottling CV:} fill, cap, label, defects at line speed; \textbf{Heineken:} $\sim$92\% better visual inspection, \textbf{35\%} fewer packaging defects (reported).
-    \item \textbf{Returnable glass:} 3D vision (e.g.\ Solomon 3D); \textbf{Water / CIP:} often \textbf{15--80\%} water savings; Carlsberg Fredericia $\sim$\textbf{1.4 hl water / hl beer}.
-  \end{itemize}
+\begin{frame}{Precision agriculture protects hop quality under climate volatility}
+  \sidebyside{%
+    \begin{tikzpicture}[font=\scriptsize, node distance=0.55cm]
+      \node[card, minimum width=\linewidth, fill=HopGreen, text=white, align=center] (a) {\faLeaf\ \textbf{For Hops Project}};
+      \node[card, minimum width=\linewidth, align=center, below=of a] (b) {IoT soil sensors + microclimate feeds};
+      \node[card, minimum width=\linewidth, fill=TechTeal!15, align=center, below=of b] (c) {AI irrigation recommendation};
+      \draw[arrow] (a)--(b);
+      \draw[arrow] (b)--(c);
+    \end{tikzpicture}
+  }{%
+    \begin{itemize}[<+->]\setlength\itemsep{0.9em}
+      \item Collaboration: Asahi, Microsoft, TensoAI, Ackee, Hop Growers Union.
+      \item Saaz region faces rising climate and water stress.
+      \item AI improves water precision while stabilizing quality and yield.
+    \end{itemize}
+  }
 \end{frame}
 
-\begin{frame}{4.2 --- Czech breweries: Pilsner Urquell (Asahi)}
-  \small
-  \begin{itemize}
-    \item Production \textbf{$>$10 M hl/year}; Asahi acquired Czech operations \textbf{2017}.
-    \item Bottling line up to \textbf{120{,}000 bottles/hour} at peak --- small crew supervising automation.
-    \item \textbf{IdentPro} WES + \textbf{Sewio RTLS} (2024 networking day at PU): real-time indoor asset tracking in logistics.
-    \item \textbf{PRECOGIT:} SAP-centric ``Brewery of the Future'' digitalization roadmap.
-    \item \textbf{Zero-energy warehouse} under construction in Plzeň --- storage efficiency and lower emissions.
-  \end{itemize}
+\begin{frame}{Czech DRS will create a national reverse-logistics AI infrastructure by 2025--2026}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.54\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[
+          modern bar,
+          width=\linewidth,
+          height=4.7cm,
+          symbolic x coords={PET Units,Cans,Target Collection},
+          xtick=data,
+          ylabel={Billions / \%},
+          ymax=2.2,
+          ytick={0,0.5,1.0,1.5,2.0}
+        ]
+          \addplot[fill=TechTeal] coordinates {({PET Units},1.8) (Cans,0.8) ({Target Collection},0.9)};
+        \end{axis}
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \footnotesize
+      \begin{itemize}[<+->]\setlength\itemsep{0.7em}
+        \item Deposit: 4--5 CZK per eligible container.
+        \item Mandatory returns for retail spaces above 50 m\textsuperscript{2}.
+        \item Target: 90\% collection by 2029.
+      \end{itemize}
+      \vspace{0.7em}
+      \small \alert{Operational implication:} reverse flow becomes as data-intensive as forward flow.
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{4.2 --- Budweiser Budvar (state-owned contrast)}
-  \small
-  \begin{itemize}
-    \item Single site: \textbf{$>$20{,}000 pallets}, \textbf{50+} truck shipments/day, \textbf{360} SKU variants (10 beers $\times$ many label languages).
-    \item \textbf{RFID on forklifts} $\rightarrow$ only $\sim$\textbf{80\%} uptime (antenna damage, harsh environment); moved to \textbf{RTLS} for reliability and logistics insight.
-    \item \textbf{Cloud SAP ERP} migration --- automation and digitalization for a \textbf{130-year-old} brewery.
-    \item State-owned; \textbf{$\sim$EUR 140M} turnover, \textbf{$\sim$600} employees --- scale and governance unlike global megabrewers.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{4.3 Warehouse --- storage \& preparation (global)}
-  \small
-  \begin{itemize}
-    \item \textbf{Dynamic slotting:} AI can cut average pick paths by $\sim$\textbf{40\%}.
-    \item \textbf{Digital twins} stress-test layout and flow before concrete changes.
-    \item \textbf{AutoScheduler.AI} re-sequences labor, replenishment, docks atop existing WMS.
-    \item \textbf{FEFO-aware} replenishment: e.g.\ 90-day life $\rightarrow$ deliver with \textbf{54--68} days left (retailers often require \textbf{60--75\%} remaining life). AI scores expiry risk and redirects stock to faster outlets.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{4.3 --- Czech lens: PU \& Budvar warehouses}
-  \small
-  \begin{itemize}
-    \item \textbf{Pilsner Urquell:} WES/RTLS integration, digital twin-style visibility in brewery logistics; \textbf{zero-energy} warehouse build in Plzeň.
-    \item \textbf{Budvar:} massive pallet cube, high outbound truck cadence, label-language complexity --- RTLS + modern ERP as control tower.
-    \item Same themes as global best practice: \textbf{traceability}, \textbf{slotting}, \textbf{energy}, fewer manual searches.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{4.4 The truck --- routing \& delivery}
-  \small
-  \begin{itemize}
-    \item Mid-size distributor: \textbf{80--150} routes/day; fleet + fuel = \textbf{10--20\%} of revenue.
-    \item \textbf{Off-trade:} pallets, regular cadence, comparatively simple.
-    \item \textbf{On-trade:} many stops, small drops, narrow windows (before open), awkward access --- smaller trucks, multi-temp.
-    \item \textbf{Heineken USA + Palantir:} AI agent network, \textbf{66k} truckloads/yr across \textbf{450} distributors --- built in \textbf{3 months} vs.\ \textbf{3 years} prior (case narrative).
-    \item \textbf{Keg IoT:} Konvoy $\sim$250k tracked kegs --- \textbf{22\%} fewer idle kegs, \textbf{20\%} better utilization; Keg Hounds + HID RFID recovered \textbf{140k} kegs, \textbf{\$12.5M} saved (reported).
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{4.4 --- Czech export logistics (Asahi Europe / PU)}
-  \small
-  \begin{itemize}
-    \item Pilsner Urquell is a \textbf{major exporter}; Asahi Europe's network spans \textbf{50+} destination countries from Czech production.
-    \item Same AI/optimization story as elsewhere: \textbf{load planning}, \textbf{freshness windows}, \textbf{cold chain}, customs and SKU mix --- at continental scale from one home site.
-    \item Connects back to \textbf{warehouse RTLS} and \textbf{high-speed bottling}: execution data feeds dispatch and service promises.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{4.5 The shelf --- retail execution (global)}
-  \small
-  \begin{itemize}
-    \item SKU proliferation (craft, imports, no/low) $\Rightarrow$ finite space, high-stakes assortment.
-    \item \textbf{Planogram AI:} clustering, demand transfer, space-aware optimization.
-    \item \textbf{BEESForce (AB InBev):} cooler photos $\rightarrow$ planogram + price OCR; firm described a \textbf{five-year struggle} before reliable audits.
-    \item \textbf{AB InBev Korea:} shelf AI \textbf{95\%+} accuracy, \textbf{11 s} vs.\ \textbf{40 min}.
-    \item \textbf{Category captaincy:} large brewers' analytics can reallocate shelf --- structural edge vs.\ small brands.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{4.5 --- Czech retail: shelf battle}
-  \small
-  \begin{itemize}
-    \item Post-privatization: \textbf{homogeneous} big-brand lagers displaced much \textbf{local} diversity; \textbf{craft} is pushing back (617 breweries).
-    \item \textbf{Czech craft differs from US:} \textbf{34\%} craft brewers only bottom-fermented lagers; \textbf{63\%} both lagers and ales --- US craft skews heavily to ales/IPAs.
-    \item \textbf{Mainstream lagers} dominate at \textbf{low prices}; craft grows inside the same \textbf{finite shelf} --- same \textbf{AI-driven category captain} dynamics as globally.
-    \item Tie to macro: \textbf{NA $\approx$10\%}, \textbf{cans $\approx$25\%}, \textbf{75\% off-premise} --- assortment and promo algorithms train on these shifts.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{4.6 The tap --- on-trade digitization (global)}
-  \small
-  \begin{itemize}
-    \item Least digitized channel: weak POS standardization, little IoT.
-    \item \textbf{Draft intelligence} examples (reported outcomes): WeissBeerger (AB InBev) \textbf{+32\%} revenue/tap, \textbf{50\%} waste reduction; SmartDispense \textbf{98\%+} pour quality; PourMyBeer \textbf{+37\%} tabs; Pubinno \textbf{652M L} water saved, \textbf{20\%} keg savings.
-    \item \textbf{Heineken EVALAN} tank sensors: volume, temperature, quality telemetry.
-    \item Tap data \textbf{closes the loop} into producer demand planning.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{4.6 --- Czechia: the \emph{hospoda} and tank beer}
-  \small
-  \begin{itemize}
-    \item \textbf{Hospoda} = cultural institution --- historically the heart of community life, especially in small towns.
-    \item Rural quote (theme): small breweries/pubs often the \textbf{last social hub} in villages --- pressure as consumption moves \textbf{home} (75\% shop share).
-    \item \textbf{Unpasteurized ``tank'' Pilsner Urquell:} fresh beer by \textbf{insulated tanker} to dedicated pubs --- \textbf{cold chain}, freshness, and telemetry are natural \textbf{IoT/AI} cases.
-    \item \textbf{Budvar} matures beer \textbf{minimum 90 days} (vs.\ $\sim$72 hours for some mass lagers) --- \textbf{QC} and \textbf{freshness tracking} matter disproportionately.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{4.7 Consumer --- pricing, promos, personalization}
-  \begin{itemize}
-    \item Beer price elasticity $\sim$\textbf{--0.5} (less elastic than wine/spirits in many studies).
-    \item \textbf{AB InBev:} $\sim$\textbf{140} ML models across \textbf{7} markets for elasticity; \textbf{80--90\%} accuracy claimed.
-    \item \textbf{Promo waste:} historically \textbf{40--72\%} of trade spend not ROI-positive; AI decomposes lift (incremental, cannibalization, halo, pantry-loading).
-    \item \textbf{Carlsberg VMx:} showed some packs mostly cannibalized own SKUs --- only visible with ML decomposition.
-    \item \textbf{BEES promos:} \textbf{+22\%} redemption, \textbf{+12\%} profit/hl vs.\ traditional discounts; \textbf{72\%} revenue digital; recommendations touch \textbf{80\%+} of orders; \textbf{+3\%} basket when suggestions adopted.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{4.8 Returns --- reverse logistics \& sustainability}
-  \small
-  \begin{itemize}
-    \item Returnables (bottles, kegs, crates) anchor circularity.
-    \item \textbf{TOMRA:} $\sim$84k reverse vending machines, \textbf{40B+} containers/yr; deep learning \textbf{98\%+} aluminum purity at \textbf{2{,}000} ejections/min --- $\sim$33$\times$ human speed.
-    \item \textbf{Germany $\sim$98\%} return rate vs.\ \textbf{US $\sim$34\%} (deposit vs.\ non-deposit context).
-    \item \textbf{AB InBev:} returnable glass $\sim$8$\times$ lower carbon than one-way glass (internal analysis cited).
-    \item \textbf{Carlsberg:} \textbf{57\%} carbon reduction; Snap Pack $\sim$1{,}200 tonnes plastic/year saved.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{4.8 --- Czechia: deposits and returnable tradition}
-  \small
-  \begin{itemize}
-    \item Czech market long anchored in \textbf{returnable glass and crates} --- reverse logistics is everyday operations, not a niche pilot.
-    \item \textbf{Deposit systems} and high return discipline pair with the \textbf{same AI vision} as TOMRA-style sorting: purity, speed, fraud detection.
-    \item Closing the loop: returns data $\rightarrow$ \textbf{refill planning}, \textbf{keg pool sizing}, and \textbf{ESG} reporting.
-  \end{itemize}
+\begin{frame}{GenAI is compressing decision latency at headquarters but not replacing core optimization}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.38\textwidth}
+      \bigstat[TechNavy]{15 min -> 1--10 s}{Heineken Hoppy data retrieval time}
+    \end{column}
+    \begin{column}{0.58\textwidth}
+      \footnotesize
+      \begin{itemize}[<+->]\setlength\itemsep{0.8em}
+        \item Hoppy runs on SAP BTP + Datasphere for internal enterprise querying.
+        \item Analysts spend less time searching and more time deciding.
+        \item Core margin still depends on classical forecasting, optimization, and vision loops.
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 % ===========================================================================
-\section[Part 5]{\texorpdfstring{Part 5: Big picture \& discussion \timing{(10 min)}}{Part 5: Big picture and discussion (10 min)}}
+\section[Part 4]{\texorpdfstring{Part 4: Strategy, margin impact, and discussion \timing{(20 min)}}{Part 4}}
 
-\begin{frame}{5.1 The compounding effect}
-  \begin{itemize}
-    \item Power is the \textbf{cascade}: better forecast $\rightarrow$ less safety stock $\rightarrow$ cheaper warehousing $\rightarrow$ fuller trucks $\rightarrow$ cheaper delivery.
-    \item At \textbf{3\%} net margin, a \textbf{5\%} cut in total operating cost $\approx$ \textbf{doubles} profit (illustrative arithmetic for discussion).
+\begin{frame}{Small percentage improvements compound into material margin protection}
+  \centering
+  \begin{tikzpicture}[font=\footnotesize\bfseries, node distance=0.45cm]
+    \node[card, fill=TechNavy, text=white, minimum width=2.5cm, minimum height=1.2cm, align=center] (a) {+5\%\\Forecast Accuracy};
+    \node[card, fill=TechTeal, text=white, minimum width=2.5cm, minimum height=1.2cm, align=center, right=of a] (b) {-Safety\\Stock};
+    \node[card, fill=BeerGold, text=TechNavy, minimum width=2.5cm, minimum height=1.2cm, align=center, right=of b] (c) {-Waste\\+Storage Cost};
+    \node[card, fill=BeerAmber, text=white, minimum width=2.5cm, minimum height=1.2cm, align=center, right=of c] (d) {+Route\\Efficiency};
+    \node[card, fill=HopGreen, text=white, minimum width=2.5cm, minimum height=1.2cm, align=center, right=of d] (e) {+Margin\\Defense};
+    \foreach \x/\y in {a/b,b/c,c/d,d/e} \draw[arrow] (\x)--(\y);
+  \end{tikzpicture}
+
+  \vspace{1.6em}
+  \bigstat[HopGreen]{\(\sim\)2x profit sensitivity}{Illustrative for low-net-margin distribution businesses}
+\end{frame}
+
+\begin{frame}{AI creates a consolidation flywheel that favors capitalized operators}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.54\textwidth}
+      \begin{tikzpicture}[font=\footnotesize\bfseries, node distance=0.4cm]
+        \node[card, circle, minimum size=2.2cm, fill=TechNavy, text=white, align=center] (a) {More\\Data};
+        \node[card, circle, minimum size=2.2cm, fill=TechTeal, text=white, align=center, right=1.3cm of a] (b) {Better\\Models};
+        \node[card, circle, minimum size=2.2cm, fill=BeerGold, text=TechNavy, align=center, below=1.0cm of b] (c) {Higher\\Margins};
+        \node[card, circle, minimum size=2.2cm, fill=BeerAmber, text=white, align=center, below=1.0cm of a] (d) {More\\Investment};
+        \draw[arrow] (a) -- (b);
+        \draw[arrow] (b) -- (c);
+        \draw[arrow] (c) -- (d);
+        \draw[arrow] (d) -- (a);
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \footnotesize
+      \begin{itemize}[<+->]\setlength\itemsep{0.8em}
+        \item Automation capex (warehouses, ESL, RVM, RTLS) is high.
+        \item Scale players (Asahi, Heineken, Rohl\'ik) extend the moat faster.
+        \item Smaller operators need niche focus and data partnerships.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{The strongest immediate value accrues to distributors and on-trade operators}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Distributor pain points}
+      \footnotesize
+      \begin{itemize}\setlength\itemsep{0.55em}
+        \item Thin margins + delayed price pass-through
+        \item Expensive fleet and driver constraints
+        \item Costly inventory and spoilage errors
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{AI gains that matter}
+      \footnotesize
+      \begin{itemize}\setlength\itemsep{0.55em}
+        \item Fewer stockouts and fewer markdown losses
+        \item Denser routes without adding trucks
+        \item Better pub replenishment via tank telemetry
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{A new craft brewery can still compete by picking a focused data stack}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.58\textwidth}
+      \begin{itemize}[<+->]\setlength\itemsep{0.9em}
+        \item \textbf{Start with one forecasting loop:} demand + expiry + replenishment.
+        \item \textbf{Prioritize channel economics:} different logic for on-trade and off-trade.
+        \item \textbf{Instrument critical assets:} keg/tank temperature and fill telemetry.
+        \item \textbf{Adopt partner platforms:} do not rebuild everything from scratch.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.38\textwidth}
+      \bigstat[BeerAmber]{Focus beats scale}{When capital is constrained}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Demo flow: Palantir-style control tower plus voice AI execution}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.56\textwidth}
+      \begin{tikzpicture}[font=\scriptsize\bfseries, node distance=0.45cm]
+        \node[card, minimum width=\linewidth, fill=TechNavy, text=white, align=center] (a) {1) Synthetic beer supply dataset};
+        \node[card, minimum width=\linewidth, fill=TechTeal, text=white, align=center, below=of a] (b) {2) Margin-risk detection and scenario simulation};
+        \node[card, minimum width=\linewidth, fill=BeerGold, text=TechNavy, align=center, below=of b] (c) {3) Recommended route + pricing + replenishment actions};
+        \node[card, minimum width=\linewidth, fill=BeerAmber, text=white, align=center, below=of c] (d) {4) Voice confirmation workflow (HappyRobot-style)};
+        \foreach \x/\y in {a/b,b/c,c/d} \draw[arrow] (\x)--(\y);
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \footnotesize
+      \begin{itemize}[<+->]\setlength\itemsep{0.8em}
+        \item Goal: show decision latency reduction, not dashboard beauty.
+        \item Success metric: time from anomaly to executed action.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Open questions for discussion}
+  \begin{itemize}[<+->]\setlength\itemsep{1.2em}
+    \item If you opened a Czech craft brewery today, which single AI workflow would you fund first?
+    \item Should policymakers push standardized data sharing to reduce wholesale opacity?
+    \item Is DRS execution mostly a logistics problem or a data governance problem?
+    \item Where is AI producing measurable margin today, and where is it still mostly narrative?
   \end{itemize}
 \end{frame}
 
-\begin{frame}{5.2 Competitive landscape (high level)}
-  \begin{itemize}
-    \item \textbf{AB InBev} leads on breadth: BEES scale (\textbf{\$52.5B} GMV, \textbf{3.1M} customers, \textbf{3B} data points/month) creates advantages smaller players cannot trivially copy.
-    \item \textbf{Heineken} strong second across many domains.
-    \item Gap \textbf{top vs.\ tail} widening --- AI reinforces consolidation pressure.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{5.3 What's next}
-  \begin{itemize}
-    \item \textbf{On-trade digitization} --- largest remaining upside, hardest execution.
-    \item \textbf{Physical + digital convergence} (e.g.\ industry M\&A such as Trax--FORM, Feb 2026) signals integrated execution stacks.
-    \item \textbf{Smart kegs} evolving from ``where is it'' to consumption, temperature, freshness telemetry.
-    \item \textbf{Autonomous diagnosis:} e.g.\ RELEX AI agents (Nov 2025) auto triage stockouts/spoilage roots --- shift from prediction toward closed-loop action.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{5.3 (cont.) --- Czech national AI context}
-  \small
-  \begin{itemize}
-    \item \textbf{KarolAIna} supercomputer (Ostrava): $\sim$\textbf{340} advanced AI accelerators, $\sim$\textbf{850} PFlop/s peak --- national AI training/inference capacity.
-    \item Public AI R\&D: \textbf{EUR 47.6--51.6 M/year}; since 2017, \textbf{$\sim$847} AI-tagged projects, \textbf{$\sim$EUR 452 M} total public funding (order-of-magnitude policy figures).
-    \item \textbf{TechTower, Plzeň:} historic brewery site $\rightarrow$ major \textbf{tech park} --- symbolism: city that invented pilsner now hosts deep-tech and digital industry.
-    \item \textbf{NAIS 2030:} national AI strategy (industry, government, education, security) --- FMCG/beer benefits as \textbf{industrial AI} adopters.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[standout]{The Pilsen story arc}
-  \large
-  \textbf{1842} --- Plzeň invents the pilsner; the style conquers the world.
-
-  \vspace{1em}
-  \textbf{2024--2026} --- Plzeň builds \textbf{TechTower} in a former brewery; national supercomputing and SAP/digital twins run through Czech beer and hops.
-
-  \vspace{1em}
-  \normalsize
-  Same city: \textbf{recipe innovation} then, \textbf{compute and data} now.
-\end{frame}
-
-\begin{frame}[standout]{5.4 Open discussion}
-  \normalsize
-  \begin{itemize}
-    \item If you opened a craft brewery today, how would you compete against AB InBev's data stack?
-    \item Should the US three-tier system change to improve data sharing?
-    \item Czechia allows direct ties --- does that \textbf{close the gap} with megabrewer analytics, or \textbf{not enough}?
-    \item Where is AI \textbf{genuine value} vs.\ \textbf{hype}?
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Pacing guide}
-  \small
-  \begin{tabular}{@{}p{0.52\linewidth}cc@{}}
-    \toprule
-    \textbf{Section} & \textbf{Time} & \textbf{Energy} \\
-    \midrule
-    Part 1: AI foundations & 30 min & Instructional \\
-    Part 2: Supply chain problems & 25 min & Tension \\
-    Part 3: AI + SC (general) & 15 min & Proof \\
-    \textbf{Break} & \textbf{10 min} & --- \\
-    Part 4: Beer value chain & 40 min & Narrative core \\
-    Part 5: Big picture + Q\&A & 10 min & Strategic \\
-    \bottomrule
-  \end{tabular}
-
-  \vspace{1em}
+\begin{frame}{Selected evidence base used in this deck}
   \footnotesize
-  Total $\sim$2 hours including break.
-\end{frame}
-
-\begin{frame}{Speaker reminders}
-  \small
-  \begin{itemize}
-    \item Use \textbf{margin structure} early --- distributors at 1.8--5.8\% net make efficiency visceral.
-    \item \textbf{Three-tier} as US-specific hook most students have never met.
-    \item Narrative spine: \textbf{Pilsner Urquell} from \textbf{Saaz} to \textbf{Prague hospoda} --- students can \textbf{visit} the place.
-    \item \textbf{TechTower / 1842 hook:} opening or closing story for US audience.
+  \begin{itemize}[<+->]\setlength\itemsep{0.55em}
+    \item Czech beer value-chain econometrics (cointegration + VECM) for price transmission dynamics.
+    \item Logio / Yieldigo / Krones / AutoStore case studies for Czech operational deployments.
+    \item Brewer and retail reports (Asahi, Heineken, Albert, Rohl\'ik, Ko\v{s}\'ik) for implementation outcomes.
+    \item Czech DRS policy and TOMRA documentation for reverse-logistics architecture.
+    \item Full bibliography is provided in the narrative source document.
   \end{itemize}
 \end{frame}
 
 \begin{frame}[plain]
   \centering
   \vfill
-  {\Large Thank you}
+  \begin{tikzpicture}
+    \node[card, fill=TechNavy, text=white, inner sep=20pt, align=center] {
+      \fontsize{44}{50}\selectfont\textbf{Thank you}
+    };
+  \end{tikzpicture}
+
+  \vspace{1.2em}
+  \large \color{BeerAmber}\faGlassCheers\par
+  \vspace{0.8em}
+  \normalsize \texttt{daniel@alves.world}
   \vfill
 \end{frame}
 
