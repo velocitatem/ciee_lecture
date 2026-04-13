@@ -2,7 +2,7 @@
 \documentclass[aspectratio=169,10pt]{beamer}
 
 \usetheme[progressbar=frametitle,block=fill]{metropolis}
-\metroset{numbering=fraction}
+\metroset{numbering=fraction,sectionpage=none,subsectionpage=none}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -118,12 +118,16 @@
   \end{columns}}
 
 \newcommand{\source}[1]{\vspace{0.4em}{\tiny\color{MutedGray}#1}}
+\newcommand{\acronymnote}[1]{%
+  \vfill
+  {\raggedright\tiny\color{MutedGray}* #1\par}
+}
 
 % ===========================================================================
 % TITLE PAGE SETUP
 % ===========================================================================
-\title{Artificial Intelligence in the Czech Beverage and FMCG Value Chain}
-\subtitle{How algorithms protect margin from field to tap}
+\title{AI in Beer Distribution}
+\subtitle{Today we focus on how AI improves beer distribution economics}
 \author{Daniel Alves}
 \date{\today}
 
@@ -131,6 +135,7 @@
 
 \begin{frame}
   \titlepage
+  \acronymnote{AI = Artificial Intelligence.}
 \end{frame}
 
 \begin{frame}[standout]{AI is now the primary margin defense in Czech beverage distribution}
@@ -156,19 +161,21 @@
       \item Current research: dynamic pricing optimization on Google TPU infrastructure.
     \end{itemize}
   }{%
-    \vspace{0.3em}
+    \vspace{1.9cm}
     \begin{tikzpicture}[font=\small]
-      \node[card, minimum width=\linewidth, align=left] {
-        \textbf{Contact}\par\vspace{0.7em}
-        \faEnvelope\ \texttt{daniel@alves.world}\par\vspace{0.5em}
+      \node[card, minimum width=\linewidth, text width=0.9\linewidth, align=left] {
+        \textbf{Contact}\\[0.55em]
+        \faEnvelope\ \texttt{daniel@alves.world}\\[0.45em]
         \faLinkedin\ LinkedIn profile
-      };
-      \node[card, minimum width=3.2cm, minimum height=3.2cm, fill=TechNavy!4, align=center, below=0.6cm of current bounding box.south, anchor=north] {
-        \Large\color{TechTeal}\faQrcode\\[-0.1em]
-        \scriptsize LinkedIn QR
       };
     \end{tikzpicture}
   }
+  \acronymnote{P\&L = Profit and Loss; OSS = Open-Source Software; TPU = Tensor Processing Unit.}
+\end{frame}
+
+\begin{frame}{Mentimeter}
+  \centering
+  \includegraphics[height=0.58\textheight,keepaspectratio]{menti.png}
 \end{frame}
 
 \begin{frame}{Roadmap}
@@ -176,7 +183,7 @@
 \end{frame}
 
 % ===========================================================================
-\section[Intro]{\texorpdfstring{Intro: Why beer supply chains are special \timing{(15 min)}}{Intro}}
+\section[Intro]{\texorpdfstring{Intro: Why beer supply chains are special \timing{(10 min)}}{Intro}}
 
 \begin{frame}{On-trade and off-trade economics require different AI systems}
   \begin{columns}[T,onlytextwidth]
@@ -235,6 +242,7 @@
       \scriptsize Tankovna and hospoda behavior matters
     \end{column}
   \end{columns}
+  \acronymnote{FMCG = Fast-Moving Consumer Goods; FEFO = First Expired, First Out.}
 \end{frame}
 
 \begin{frame}{Execution is moving from dashboards to autonomous operational agents}
@@ -254,10 +262,11 @@
       \item \textbf{TOMRA:} AI at the edge in reverse logistics.
     \end{itemize}
   }
+  \acronymnote{AIP = Artificial Intelligence Platform.}
 \end{frame}
 
 % ===========================================================================
-\section[Part 1]{\texorpdfstring{Part 1: Classical AI foundations \timing{(25 min)}}{Part 1}}
+\section[Part 1]{\texorpdfstring{Part 1: Classical AI foundations \timing{(15 min)}}{Part 1}}
 
 \begin{frame}{Classical AI drives supply-chain value; GenAI mainly improves access to that value}
   \begin{columns}[c,onlytextwidth]
@@ -282,6 +291,7 @@
       \end{itemize}
     \end{column}
   \end{columns}
+  \acronymnote{GenAI = Generative Artificial Intelligence.}
 \end{frame}
 
 \begin{frame}{A model is just a learned mapping from inputs to outputs}
@@ -366,6 +376,7 @@
   \end{columns}
   \vspace{1em}
   \centering\small Better forecasts are useful only when they trigger better decisions automatically.
+  \acronymnote{LSTM = Long Short-Term Memory; TFT = Temporal Fusion Transformer; RVM = Reverse Vending Machine.}
 \end{frame}
 
 \begin{frame}{Censored demand is a hidden data defect that causes chronic under-ordering}
@@ -404,15 +415,17 @@
       \footnotesize
       \begin{itemize}[<+->]\setlength\itemsep{0.8em}
         \item Models trained on normal history fail under regime shifts.
+        \item Example shock: a truck crash with off-trade bottled beer creates sudden local stockouts.
         \item Decision support still helps rebalance inventory between channels.
         \item Scenario simulation becomes more valuable than point forecasts.
       \end{itemize}
     \end{column}
   \end{columns}
+  \acronymnote{COVID-19 = Coronavirus Disease 2019.}
 \end{frame}
 
 % ===========================================================================
-\section[Part 2]{\texorpdfstring{Part 2: Czech market economics \timing{(30 min)}}{Part 2}}
+\section[Part 2]{\texorpdfstring{Part 2: Czech market economics \timing{(20 min)}}{Part 2}}
 
 \begin{frame}{Czech FMCG is economically heavyweight, so small efficiency gains scale nationally}
   \begin{columns}[T,onlytextwidth]
@@ -442,6 +455,7 @@
     \end{column}
   \end{columns}
   \source{AIM Data Points, USDA/FAS, Czech FMCG market reports.}
+  \acronymnote{GDP = Gross Domestic Product; EUR = Euro.}
 \end{frame}
 
 \begin{frame}{Beer demand is structurally shifting from alcoholic volume toward non-alcoholic growth}
@@ -477,6 +491,7 @@
       \centering\footnotesize Non-alcoholic segment +50\% vs 2019; now near 10\% of sales.
     \end{column}
   \end{columns}
+  \acronymnote{M hl = million hectoliters.}
 \end{frame}
 
 \begin{frame}{Channel migration to retail changes packaging, forecasting, and promotion economics}
@@ -534,6 +549,7 @@
       \end{itemize}
     \end{column}
   \end{columns}
+  \acronymnote{CZ = Czech Republic; YoY = Year over Year.}
 \end{frame}
 
 \begin{frame}{Domestic price transmission is wholesale-led and slow, so cost shocks hurt margins first}
@@ -564,6 +580,7 @@
     \end{column}
   \end{columns}
   \source{Price relationships along the Czech beer value chain (Johansen cointegration, VECM).}
+  \acronymnote{VECM = Vector Error Correction Model.}
 \end{frame}
 
 \begin{frame}{Distributors operate on thin net margins, so operational AI is not optional}
@@ -583,19 +600,7 @@
 \end{frame}
 
 % ===========================================================================
-\section[Break]{\texorpdfstring{Break \timing{(10 min)}}{Break}}
-
-\begin{frame}[standout]
-  \Huge \faCoffee \\[0.4em]
-  \Large Break --- 10 minutes
-
-  \vspace{1em}
-  \normalsize
-  After the break we follow one bottle from \textbf{Saaz field} to \textbf{retail shelf} to \textbf{pub tap}.
-\end{frame}
-
-% ===========================================================================
-\section[Part 3]{\texorpdfstring{Part 3: AI deployments across the chain \timing{(40 min)}}{Part 3}}
+\section[Part 3]{\texorpdfstring{Part 3: AI deployments across the chain \timing{(25 min)}}{Part 3}}
 
 \begin{frame}{AI is now embedded at every node from agriculture to reverse logistics}
   \centering
@@ -611,6 +616,7 @@
 
   \vspace{1.2em}
   \small Forecasting, pricing, computer vision, routing, and IoT all run as one economic system.
+  \acronymnote{DC = Distribution Center; IoT = Internet of Things.}
 \end{frame}
 
 \begin{frame}{Touchless planning delivers immediate value in availability and waste}
@@ -632,6 +638,7 @@
     \item Heineken + Blue Yonder: cognitive demand planning and scenario orchestration.
   \end{itemize}
   \source{Logio and Yieldigo case studies; Blue Yonder deployment reports.}
+  \acronymnote{SKU = Stock Keeping Unit.}
 \end{frame}
 
 \begin{frame}{Forecast quality rises when models ingest external drivers}
@@ -668,6 +675,7 @@
       \end{itemize}
     \end{column}
   \end{columns}
+  \acronymnote{ERP = Enterprise Resource Planning.}
 \end{frame}
 
 \begin{frame}{Dynamic pricing automation stops leakage while protecting customer trust}
@@ -692,6 +700,7 @@
       \end{itemize}
     \end{column}
   \end{columns}
+  \acronymnote{ESL = Electronic Shelf Label.}
 \end{frame}
 
 \begin{frame}{Automated intralogistics expands throughput and cuts emissions simultaneously}
@@ -722,6 +731,7 @@
     \end{column}
   \end{columns}
   \source{Krones + System Logistics + Logio implementation reports.}
+  \acronymnote{CO2 = Carbon Dioxide.}
 \end{frame}
 
 \begin{frame}{Route optimization learns stop-level reality and can raise route density up to 30\%}
@@ -812,6 +822,7 @@
       \end{itemize}
     \end{column}
   \end{columns}
+  \acronymnote{DRS = Deposit Return System.}
 \end{frame}
 
 \begin{frame}{Precision agriculture protects hop quality under climate volatility}
@@ -824,11 +835,11 @@
       \draw[arrow] (b)--(c);
     \end{tikzpicture}
   }{%
-    \begin{itemize}[<+->]\setlength\itemsep{0.9em}
-      \item Collaboration: Asahi, Microsoft, TensoAI, Ackee, Hop Growers Union.
-      \item Saaz region faces rising climate and water stress.
-      \item AI improves water precision while stabilizing quality and yield.
-    \end{itemize}
+      \begin{itemize}[<+->]\setlength\itemsep{0.9em}
+        \item Collaboration: Asahi, Microsoft, TensoAI, Ackee, Hop Growers Union.
+        \item Saaz region faces rising climate and water stress.
+        \item AI improves water precision while stabilizing quality and yield.
+      \end{itemize}
   }
 \end{frame}
 
@@ -861,6 +872,7 @@
       \small \alert{Operational implication:} reverse flow becomes as data-intensive as forward flow.
     \end{column}
   \end{columns}
+  \acronymnote{PET = Polyethylene Terephthalate; CZK = Czech Koruna.}
 \end{frame}
 
 \begin{frame}{GenAI is compressing decision latency at headquarters but not replacing core optimization}
@@ -877,10 +889,11 @@
       \end{itemize}
     \end{column}
   \end{columns}
+  \acronymnote{SAP = Systems, Applications, and Products; BTP = Business Technology Platform.}
 \end{frame}
 
 % ===========================================================================
-\section[Part 4]{\texorpdfstring{Part 4: Strategy, margin impact, and discussion \timing{(20 min)}}{Part 4}}
+\section[Part 4]{\texorpdfstring{Part 4: Strategy, margin impact, and discussion \timing{(15 min)}}{Part 4}}
 
 \begin{frame}{Small percentage improvements compound into material margin protection}
   \centering
@@ -920,6 +933,7 @@
       \end{itemize}
     \end{column}
   \end{columns}
+  \acronymnote{capex = Capital Expenditure; RTLS = Real-Time Location System.}
 \end{frame}
 
 \begin{frame}{The strongest immediate value accrues to distributors and on-trade operators}
