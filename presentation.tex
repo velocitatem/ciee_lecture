@@ -126,9 +126,9 @@
 % ===========================================================================
 % TITLE PAGE SETUP
 % ===========================================================================
-\title{AI in Beer Distribution}
+\title{AI in Beer Distribution \texorpdfstring{\ \faBeer\ + \faRobot\ =\ ?}{}}
 \subtitle{Today we focus on how AI improves beer distribution economics}
-\author{Daniel Alves}
+\author{Daniel Alves Rosel}
 \date{\today}
 
 \begin{document}
@@ -166,7 +166,7 @@
       \node[card, minimum width=\linewidth, text width=0.9\linewidth, align=left] {
         \textbf{Contact}\\[0.55em]
         \faEnvelope\ \texttt{daniel@alves.world}\\[0.45em]
-        \faLinkedin\ LinkedIn profile
+        \faLinkedin\ /in/daniel-rosel
       };
     \end{tikzpicture}
   }
@@ -597,6 +597,38 @@
       \end{itemize}
     \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}{Portfolio steering offsets low-margin beer with high-margin adjacencies}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[
+          modern bar,
+          width=\linewidth,
+          height=4.5cm,
+          symbolic x coords={Core Lager,Energy Drink,Snack SKU},
+          xtick=data,
+          ylabel={Gross margin (\%)},
+          ymax=30,
+          x tick label style={font=\scriptsize, rotate=12, anchor=east}
+        ]
+          \addplot[fill=BeerAmber] coordinates {({Core Lager},3) ({Energy Drink},18) ({Snack SKU},26)};
+        \end{axis}
+      \end{tikzpicture}
+      \centering\footnotesize Beer can protect account volume while adjacencies protect basket margin.
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \footnotesize
+      \begin{itemize}[<+->]\setlength\itemsep{0.75em}
+        \item A beer SKU can run near-break-even if it anchors account share.
+        \item The objective is basket-level margin, not per-SKU margin in isolation.
+        \item With large catalogs, a \textbf{multi-armed bandit} can reallocate promo and sales focus toward higher expected margin uplift.
+        \item Constraint rules keep service levels and strategic beer placements intact.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \acronymnote{SKU = Stock Keeping Unit; multi-armed bandit = exploration/exploitation algorithm for sequential decisions.}
 \end{frame}
 
 % ===========================================================================
