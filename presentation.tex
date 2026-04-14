@@ -556,19 +556,21 @@
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.48\textwidth}
       \centering
-      \begin{tikzpicture}[node distance=0.75cm, font=\scriptsize]
-        \node[card, minimum width=2.6cm, fill=TechNavy, text=white] (p) {Producer Price};
-        \node[card, minimum width=2.8cm, fill=BeerAmber, text=white, below=of p] (w) {Wholesale Price};
-        \node[card, minimum width=2.6cm, below=of w] (r) {Retail Price};
-        \node[card, minimum width=2.8cm, right=2.4cm of w, fill=MutedGray!20] (e) {Export Price};
+      \resizebox{\linewidth}{!}{%
+        \begin{tikzpicture}[node distance=0.75cm, font=\scriptsize]
+          \node[card, minimum width=2.6cm, fill=TechNavy, text=white] (p) {Producer Price};
+          \node[card, minimum width=2.8cm, fill=BeerAmber, text=white, below=of p] (w) {Wholesale Price};
+          \node[card, minimum width=2.6cm, below=of w] (r) {Retail Price};
+          \node[card, minimum width=2.8cm, right=2.4cm of w, fill=MutedGray!20] (e) {Export Price};
 
-        \draw[-{Latex}, very thick, BeerAmber] (p) -- (w);
-        \draw[-{Latex}, very thick, BeerAmber] (w) -- (r);
-        \draw[-{Latex}, thick, MutedGray] (p.east) -- (e.west);
+          \draw[-{Latex}, very thick, BeerAmber] (p) -- (w);
+          \draw[-{Latex}, very thick, BeerAmber] (w) -- (r);
+          \draw[-{Latex}, thick, MutedGray] (p.east) -- (e.west);
 
-        \node[align=center, font=\tiny, text=BeerAmber] at (2.4,-1.2) {Strongest domestic\\price influence};
-        \node[align=center, font=\tiny, text=MutedGray] at (5.5,-0.8) {Divergent trend\\(global drivers)};
-      \end{tikzpicture}
+          \node[align=center, font=\tiny, text=BeerAmber] at (2.4,-1.2) {Strongest domestic\\price influence};
+          \node[align=center, font=\tiny, text=MutedGray] at (5.5,-0.8) {Divergent trend\\(global drivers)};
+        \end{tikzpicture}%
+      }
     \end{column}
     \begin{column}{0.48\textwidth}
       \footnotesize
@@ -1030,10 +1032,10 @@
 
 \begin{frame}{Open questions for discussion}
   \begin{itemize}[<+->]\setlength\itemsep{1.2em}
-    \item If you opened a Czech craft brewery today, which single AI workflow would you fund first?
-    \item Should policymakers push standardized data sharing to reduce wholesale opacity?
-    \item Is DRS execution mostly a logistics problem or a data governance problem?
-    \item Where is AI producing measurable margin today, and where is it still mostly narrative?
+    \item If you opened a Czech craft brewery today, what is the first AI use case you would fund?
+    \item Which data would help you most tomorrow: sales by hour, stock levels, or route delays?
+    \item Where do you see the biggest avoidable cost today: stockouts, spoilage, or late deliveries?
+    \item What should be automated first, and what should stay human for now?
   \end{itemize}
 \end{frame}
 
