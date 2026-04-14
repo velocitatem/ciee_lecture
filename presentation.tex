@@ -1005,17 +1005,6 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Selected evidence base used in this deck}
-  \footnotesize
-  \begin{itemize}[<+->]\setlength\itemsep{0.55em}
-    \item Czech beer value-chain econometrics (cointegration + VECM) for price transmission dynamics.
-    \item Logio / Yieldigo / Krones / AutoStore case studies for Czech operational deployments.
-    \item Brewer and retail reports (Asahi, Heineken, Albert, Rohl\'ik, Ko\v{s}\'ik) for implementation outcomes.
-    \item Czech DRS policy and TOMRA documentation for reverse-logistics architecture.
-    \item Full bibliography is provided in the narrative source document.
-  \end{itemize}
-\end{frame}
-
 \begin{frame}[plain]
   \centering
   \vfill
@@ -1030,6 +1019,129 @@
   \vspace{0.8em}
   \normalsize \texttt{daniel@alves.world}
   \vfill
+\end{frame}
+
+\appendix
+\section[Appendix]{\texorpdfstring{Appendix: research detail and evidence}{Appendix}}
+
+\begin{frame}{Appendix: Household demand and trade-balance detail}
+  \footnotesize
+  \begin{itemize}\setlength\itemsep{0.72em}
+    \item Household consumption represents about 45.7\% of national output; at-home FMCG spend is about EUR 14.4B.
+    \item FMCG products account for about 11.4\% of household at-home consumption value.
+    \item Trade inside the European Union is near-balanced (about EUR 8.8B exports vs EUR 8.9B imports).
+    \item Trade outside the European Union remains positive (about EUR 1.7B exports vs EUR 1.0B imports).
+    \item Taxes on production and imports represent about 11.5\% of GDP (around EUR 31.8B).
+  \end{itemize}
+  \source{AIM Data Points, USDA Exporter Guide, Czech FMCG trade snapshots.}
+\end{frame}
+
+\begin{frame}{Appendix: Company structure behind Czech FMCG output}
+  \footnotesize
+  \begin{itemize}\setlength\itemsep{0.72em}
+    \item About 85\% of food companies are micro firms (fewer than ten employees).
+    \item Large firms generate roughly 80\% of sector sales and about 75\% of employment.
+    \item Reported top revenue names include Penam, Orkla Foods, Kofola, Olma, Mattoni, and Heineken CZ.
+    \item The structure is numerically fragmented but economically concentrated in scale operators.
+    \item This asymmetry explains why AI capability often scales fastest in a small set of firms.
+  \end{itemize}
+  \source{CompanyData/BoldData market listings, national FMCG profiles, company disclosures.}
+\end{frame}
+
+\begin{frame}{Appendix: Price-study methodology notes}
+  \footnotesize
+  \begin{itemize}\setlength\itemsep{0.72em}
+    \item The econometric study uses monthly observations from January 2012 to December 2024.
+    \item It tests producer, wholesale, retail, and export prices in one integrated framework.
+    \item Johansen cointegration identifies long-run relationships, while VECM estimates adjustment speed.
+    \item Result interpretation emphasizes contractual pricing cycles over immediate shock pass-through.
+    \item The export-price series is modeled separately due to different external market drivers.
+  \end{itemize}
+  \source{Research paper: Price relationships along the Czech beer value chain (ResearchGate, AgEcon Search).}
+\end{frame}
+
+\begin{frame}{Appendix: Ko\v{s}\'ik implementation design (process detail)}
+  \footnotesize
+  \begin{itemize}\setlength\itemsep{0.72em}
+    \item Rollout starts with a diagnostic phase to isolate planning bottlenecks and waste root causes.
+    \item The forecast engine is coupled with a physical warehouse-flow redesign, not deployed in isolation.
+    \item Governance changes include automated ordering logic and new ownership of replenishment decisions.
+    \item Daily loss tracking becomes an operating control loop, not a monthly post-mortem report.
+    \item This process architecture is as important as the model itself for durable performance.
+  \end{itemize}
+  \source{Logio case implementation notes and Ko\v{s}\'ik operational redesign documentation.}
+\end{frame}
+
+\begin{frame}{Appendix: Pricing-engine internals beyond headline KPIs}
+  \footnotesize
+  \begin{itemize}\setlength\itemsep{0.72em}
+    \item Pre-AI setup handled about 16,000 active items across two geographic pricing zones manually.
+    \item Cross-elasticity modeling evaluates how one promotion affects demand in nearby substitute items.
+    \item Board-level what-if simulation allows scenario approval before any shelf or online price update.
+    \item Ultra-fresh modules manage expiry-driven markdown timing at item level.
+    \item Related deployments: Qanto promo analyzer, Super-Pharm omnichannel pricing, Lisek product-family automation.
+  \end{itemize}
+  \source{Yieldigo case material and regional deployment reports.}
+\end{frame}
+
+\begin{frame}{Appendix: Automated warehouse architecture detail}
+  \footnotesize
+  \begin{itemize}\setlength\itemsep{0.72em}
+    \item Prazdroj high-bay footprint is about 10,000 m\textsuperscript{2} with dimensions around 54 x 70 x 30 meters.
+    \item Internal transport is supported by a roughly 540-meter monorail with 28 autonomous vehicles.
+    \item Ten automated retrieval units operate in parallel, each handling dual-pallet movement.
+    \item System design includes a future expansion phase to add capacity without interrupting current operations.
+    \item Integration planning required coordinated sequencing across IT, construction, and process engineering.
+  \end{itemize}
+  \source{Krones, System Logistics, and Logio project design documentation.}
+\end{frame}
+
+\begin{frame}{Appendix: Route-learning mechanics in last-mile delivery}
+  \footnotesize
+  \begin{itemize}\setlength\itemsep{0.72em}
+    \item Static assumptions fail because unloading constraints vary by specific venue and street geometry.
+    \item Machine-learning dispatch updates service-time priors from real stop behavior over time.
+    \item If one pub repeatedly requires extra unloading time, future route plans absorb that local reality.
+    \item Telematics feedback closes the loop between plan quality, delay patterns, and next-day routing.
+    \item This is the operational mechanism behind route-density gains, not only a map-optimization feature.
+  \end{itemize}
+  \source{HOPI logistics materials, Descartes/FarEye route-optimization guidance, Czech transport case notes.}
+\end{frame}
+
+\begin{frame}{Appendix: Tank-beer digital stack detail}
+  \footnotesize
+  \begin{itemize}\setlength\itemsep{0.72em}
+    \item Tank systems use an internal polypropylene bag to isolate unpasteurized beer from ambient air.
+    \item Cellar operation enforces a narrow thermal control band to preserve quality at point of pour.
+    \item Telemetry streams level, temperature, and flow data to central planning dashboards.
+    \item Driver workflows use 2D code scanning on smartphones for high-confidence proof of delivery.
+    \item Operational data is integrated into central planning systems used by dispatch and quality teams.
+  \end{itemize}
+  \source{Tank-beer technical references, Scandit case study, Prodac systems documentation.}
+\end{frame}
+
+\begin{frame}{Appendix: Reverse-logistics operating model for DRS}
+  \footnotesize
+  \begin{itemize}\setlength\itemsep{0.72em}
+    \item National scheme operations require a central clearing platform for deposit settlement and reporting.
+    \item Return-machine workflow runs image capture, barcode match, material check, and fraud filtering.
+    \item Producer-led governance coordinates retailer intake with recycler-quality requirements.
+    \item Draft policy allocates part of unclaimed deposits to municipalities for local environmental programs.
+    \item Material purity standards are essential to achieve true closed-loop bottle-to-bottle recycling.
+  \end{itemize}
+  \source{Czech DRS policy drafts, TOMRA reverse-vending documentation, bottle-bill references.}
+\end{frame}
+
+\begin{frame}{Appendix: Execution-risk and governance checklist}
+  \footnotesize
+  \begin{itemize}\setlength\itemsep{0.72em}
+    \item Data-sharing agreements must define ownership and usage rights across producers, distributors, and retailers.
+    \item Each model class needs drift monitoring, fallback logic, and human override thresholds.
+    \item Dynamic-pricing governance requires explicit trust guardrails and auditability of decision rules.
+    \item Automation programs should include cyber-resilience planning for always-on logistics infrastructure.
+    \item Vendor concentration risk is reduced by designing interoperable data and process layers early.
+  \end{itemize}
+  \source{Cross-source synthesis from the provided research corpus and implementation reports.}
 \end{frame}
 
 \end{document}
